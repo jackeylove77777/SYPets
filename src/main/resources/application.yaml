@@ -1,0 +1,49 @@
+#端口
+server:
+  port: 8888
+  servlet:
+    context-path: /retwisApi
+#mysql redis
+spring:
+  datasource:
+    username: root
+    password: 859635
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/retwisapi?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC&serverTimezone=Asia/Shanghai
+
+  redis:
+    port: 6379
+    host: localhost
+    #使用qq邮箱发送邮件
+  #  mail:
+  #    username:
+  #    password:
+  #    host: smtp.qq.com
+  #    properties:
+  #      mail:
+  #        smtp:
+  #          ssl:
+  #            enable: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB
+  #rabbitMQ
+  rabbitmq:
+    port: 5672
+    host: localhost
+    username: admin
+    password: admin
+    virtual-host: /
+  #启用dev配置文件
+  profiles:
+    active: dev
+
+
+#七牛云存储
+#qiniu:
+#    accessKey:
+#    secretKey:
+#    bucket:
+#    prefix:
+

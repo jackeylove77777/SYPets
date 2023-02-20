@@ -39,3 +39,9 @@ build/
 
 ### frontend ###
 node_modules/
+application-dev.yml
+application-prod.yml
+application-test.yml
+application-dev.properties
+application-prod.properties
+application-test.properties
