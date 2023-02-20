@@ -1,6 +1,7 @@
 package com.hth.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.hth.entity.Answer;
 
 
 /**
