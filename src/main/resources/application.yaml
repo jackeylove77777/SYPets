@@ -9,7 +9,7 @@ spring:
     username: root
     password: 859635
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/retwisapi?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/sypet?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&serverTimezone=Asia/Shanghai
 
   redis:
     port: 6379
