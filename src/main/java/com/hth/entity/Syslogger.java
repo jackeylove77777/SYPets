@@ -11,44 +11,43 @@ import lombok.NoArgsConstructor;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 /**
- * 消息推送:例如，点赞、关注、评论、回复评论这些功能(Mention)表实体类
+ * (Syslogger)表实体类
  *
  * @author makejava
- * @since 2023-02-20 23:58:56
+ * @since 2023-02-23 13:02:34
  */
 @SuppressWarnings("serial")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("mention")
-public class Mention  {
+@TableName("syslogger")
+public class Syslogger  {
+    //记录ID@TableId
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     
-    private Integer fromId;
-    
-    private Integer toId;
-    
-    private String title;
-    
     private String description;
-    
-    private String content;
-    
-    private Date time;
-    
-    private Integer status;
-    
-    private Integer typeId;
-    
-    private Integer pid;
-    
+    //创建时间
     private Date createTime;
     
-    private Date updateTime;
-    //删除标志（0代表未删除，1代表已删除）
-    private Integer delFlag;
+    private String ip;
+    
+    private Integer uid;
+    //修改时间
+    private String url;
+    //执行的方法-类全命名.方法
+    private String requestType;
+    
+    private String classMethod;
+    //传入的参数
+    private String params;
+    //主机
+    private String response;
+    
+    private Integer excTime;
+    
+    private Integer logType;
 
 
 

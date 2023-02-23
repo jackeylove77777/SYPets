@@ -2,6 +2,8 @@ package com.hth.entity;
 
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @NoArgsConstructor
 @TableName("msg_type")
 public class MsgType  {
-    @TableId
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     

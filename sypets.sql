@@ -1,3 +1,25 @@
+
+
+-- ----------------------------
+-- Table structure for syslogger
+-- ----------------------------
+DROP TABLE IF EXISTS `syslogger`;
+CREATE TABLE `syslogger` (
+                             `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '记录ID',
+                             `description` varchar(20) DEFAULT NULL,
+                             `create_time` datetime NOT NULL COMMENT '创建时间',
+                             `ip` varchar(30) DEFAULT NULL,
+                             `uid` int(11) DEFAULT NULL,
+                             `url` varchar(100) NOT NULL COMMENT '修改时间',
+                             `request_type` varchar(10) NOT NULL DEFAULT '' COMMENT '执行的方法-类全命名.方法',
+                             `class_method` varchar(100) DEFAULT NULL,
+                             `params` text NOT NULL COMMENT '传入的参数',
+                             `response` text NOT NULL COMMENT '主机',
+                             `exc_time` int(11) DEFAULT NULL,
+                             `log_type` int(11) DEFAULT NULL,
+                             PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
