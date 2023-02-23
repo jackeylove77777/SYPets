@@ -15,6 +15,7 @@ public class ExceptionFilter implements Filter {
         try {
             chain.doFilter(request, response);
         } catch (Exception e) {
+            e.printStackTrace();
             // 异常捕获，发送到error controller
             request.setAttribute("filter.error", e);
             //将异常分发到/error/exthrow控制器
