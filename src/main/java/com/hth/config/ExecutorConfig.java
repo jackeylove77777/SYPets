@@ -22,12 +22,12 @@ public class ExecutorConfig {
 	//线程阻塞队列的大小
 	private int queueCapacity = 10;
 	@Bean
-	public Executor syPetAsync() {
+	public Executor mySimpleAsync() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 		executor.setCorePoolSize(corePoolSize);
 		executor.setMaxPoolSize(maxPoolSize);
 		executor.setQueueCapacity(queueCapacity);
-		executor.setThreadNamePrefix("SYPetExecutor-");
+		executor.setThreadNamePrefix("mySimpleExecutor-");
 		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 		executor.initialize();
 		return executor;

@@ -1,8 +1,8 @@
 #端口
 server:
-  port: 8888
+  port: 8001
   servlet:
-    context-path: /retwisApi
+    context-path: /api
 #mysql redis
 spring:
   datasource:
