@@ -183,3 +183,9 @@ INSERT INTO `type` VALUES ('5', '想法', null);
 INSERT INTO `type` VALUES ('6', '其他', null);
 
 
+DROP TABLE IF EXISTS `edit_post`;
+CREATE TABLE `edit_post` (
+                             `id` int(11) NOT NULL,
+                             `content` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

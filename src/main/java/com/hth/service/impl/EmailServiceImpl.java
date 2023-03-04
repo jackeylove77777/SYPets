@@ -33,8 +33,6 @@ public class EmailServiceImpl implements EmailService {
     public void sendRegisterEmail(String toEmail) {
         //随机生成6位数
         String code = SaltUtil.getSalt(6);
-//        emailUtil.sendEmai("注册验证码", "<html><body>你在<a href='http://localhost:8080/'>微社区</a>进行注册" +
-//                "验证码为<h2>" + code + "<h2><br>请在30分钟内完成注册<body></html>", toEmail);
         MimeMessage message=mailSender.createMimeMessage();
         MimeMessageHelper helper= null;
         try {

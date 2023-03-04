@@ -24,10 +24,14 @@ public class IpLimitUtil {
     public Map<String,String> ipContro(List<LimitIp> list){
         Map<String,String> map=new HashMap<>();
         for(LimitIp ip:list){
+            //increment 如果没有则创建，并且默认为1
             int count=redisTemplate.opsForValue().increment(ip.getKey()).intValue();
             if(count==1){
                 redisTemplate.expire(ip.getKey(),ip.getSec(),TimeUnit.SECONDS);//设置过期时间
             }
+            // redis-> key : sec
+            // LimitIp-> key & sec & count
+            // re
             if(count>ip.getCount()){
                 map.put("message","访问超出限制,请"+ip.getTime()+"再来访问");
                 return map;

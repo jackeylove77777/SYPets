@@ -1,7 +1,7 @@
 package com.hth.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.hth.entity.MsgType;
+import com.hth.entity.MessageType;
 
 
 /**
@@ -10,6 +10,6 @@ import com.hth.entity.MsgType;
  * @author makejava
  * @since 2023-02-20 23:59:16
  */
-public interface MsgTypeMapper extends BaseMapper<MsgType> {
+public interface MsgTypeMapper extends BaseMapper<MessageType> {
 
 }

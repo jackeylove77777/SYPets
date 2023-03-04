@@ -4,12 +4,11 @@ import java.util.Date;
 
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+
 /**
  * (Syslogger)表实体类
  *
@@ -29,6 +28,7 @@ public class Syslogger  {
     
     private String description;
     //创建时间
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
     
     private String ip;
