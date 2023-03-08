@@ -1,37 +1,35 @@
 <template>
   <div class="header">
-
+<!--    左-->
     <div class="title">
       <img src="../assets/logo.png" width="50px" height="50px" alt="">
-      <span>思远论坛</span>
+      <span>思远宠物论坛</span>
     </div>
-
+<!--    中-->
     <el-menu  :default-active="$route.path"  class="el-menu-demo" mode="horizontal" router  >
       <el-menu-item  :index="'/'" ><i class="el-icon-s-home"></i>首页</el-menu-item>
       <el-menu-item :index="'/following'"><i class="el-icon-user-solid"></i>关注</el-menu-item>
-      <el-menu-item :index="'/serach'"><i class="el-icon-search"></i>发现</el-menu-item>
+      <el-menu-item :index="'/search'"><i class="el-icon-search"></i>发现</el-menu-item>
       <el-menu-item  :index="'/messages'"><i class="el-icon-message-solid"></i>消息 <el-badge v-show="message" value="new" /></el-menu-item>
       <el-menu-item   :index="url"><i class="el-icon-user"></i>个人主页</el-menu-item>
-
     </el-menu>
 
     <div class="create">
       <el-button type="primary" @click="edit" round style="margin-left: 50px"><i class="el-icon-edit">此刻的想法</i></el-button>
     </div>
-
+<!--    头像-->
     <div class="user">
       <span>{{userInfo.username}}</span>
       <el-dropdown @command="handleCommand">
-        <span class="el-dropdown-link">
-          <i class="el-icon-arrow-down el-icon--right"><el-avatar :src="userInfo.avatar"></el-avatar></i>
-        </span>
+                <span class="el-dropdown-link">
+                    <i class="el-icon-arrow-down el-icon--right"><el-avatar :src="userInfo.avatar"></el-avatar></i>
+                </span>
         <el-dropdown-menu slot="dropdown"  >
           <el-dropdown-item command="profile"><i class="el-icon-user">个人主页</i></el-dropdown-item>
           <el-dropdown-item command="logout" divided><i class="el-icon-warning-outline">退出</i></el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-
   </div>
 </template>
 
@@ -39,18 +37,18 @@
 export default {
   name: "Header",
   data(){
-    return{
+    return {
       activeIndex:"/",
-      userInfo: {},
-      message:false,
-      serach:'',
-      path:"",
+      userInfo:{},
+      message: false,
+      search:'',
+      path:'',
       socket:""
     }
   },
   computed:{
     url(){
-      return '/profile/'+this.userInfo.username+''
+      return '/profile/'+this.userInfo.username
     }
   },
   methods:{
@@ -64,7 +62,7 @@ export default {
     profile(){
       this.$router.push('/profile/'+this.userInfo.username)
     },
-    handleCommand(command) {
+    handleCommand(command){
       if(command==="logout"){
         this.logout()
       }
@@ -72,14 +70,10 @@ export default {
         this.profile()
       }
     },
-    handleScroll () {
-      this.$nextTick(() => {
+    handleScroll(){
+      this.$nextTick(()=>{
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        if (scrollTop > 10) {
-          this.isFixed = true;
-        } else {
-          this.isFixed = false;
-        }
+        this.isFixed = scrollTop>10
       })
     },
     exists(){
@@ -102,43 +96,32 @@ export default {
         this.socket.onmessage = this.getMessage
       }
     },
-    open() {
-      console.log("socket连接成功")
+    open(){
+      console.log('socket连接')
     },
-    error() {
-      console.log("连接错误")
+    error(){
+      console.log('连接错误')
     },
-    getMessage(msg) {
-      console.log(msg)
+    getMessage(msg){
       this.message=true
-
-    },
-    close() {
-      console.log("socket已经关闭")
     }
-
   },
   created() {
-    // this.handleSelect(this.$route.name)
     this.userInfo=this.$store.getters.getUser
-
+    //默认头像
     if(!this.userInfo.avatar){
-      //默认的头像
       this.userInfo.avatar="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
     }
     this.exists()
-    // window.setInterval(()=>{
-    //     this.exists()
-    // },1000*30)
-    this.$bus.$on("noMessage",()=>{
-      this.message=false
+    this.$bus.$on('noMessage',()=>{
+      this.message = false
     })
   },
   mounted() {
     this.init()
   },
-  beforeDestroy(){
-    this.$bus.$off("noMessage")
+  beforeDestroy() {
+    this.$bus.$off('noMessage')
   },
   destroyed() {
     window.clearInterval()
@@ -147,7 +130,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 .header{
   height: 100%;
   display: flex;

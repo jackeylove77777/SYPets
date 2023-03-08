@@ -2,6 +2,7 @@ package com.hth.entity;
 
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ public class MessageType {
 
     
     private String name;
-
+    @TableField(exist = false)
     private Integer value;
 
 }

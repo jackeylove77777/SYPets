@@ -39,7 +39,7 @@ public class EmailServiceImpl implements EmailService {
             helper = new MimeMessageHelper(message,true);
             helper.setSubject("注册验证码");
             helper.setText(
-                    "<html><body>你在<a href='http://localhost:8080/'>思远宠物论坛</a>进行注册"+
+                    "<html><body>你在<a href='http://localhost:8001/'>思远宠物论坛</a>进行注册"+
                             "验证码为<h2>"+code+"<h2><br>请在30分钟内完成注册<body></html>", true);
             helper.setTo(toEmail);
             helper.setFrom("3579949927@qq.com");
@@ -64,7 +64,7 @@ public class EmailServiceImpl implements EmailService {
             helper = new MimeMessageHelper(message,true);
             helper.setSubject("重置密码");
             helper.setText(
-                    "<html><body>你在<a href='http://localhost:8080/'>思远宠物论坛</a>进行重置密码"+
+                    "<html><body>你在<a href='http://localhost:8001/'>思远宠物论坛</a>进行重置密码"+
                             "新密码为<h2>"+psw+"<h2><br>建议尽快登录修改密码<body></html>", true);
             helper.setTo(email);
             helper.setFrom("3579949927@qq.com");

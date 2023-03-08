@@ -24,6 +24,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -62,7 +63,7 @@ public class LogAspect
         Method method = methodSignature.getMethod();
         String descr = method.getAnnotation(Logweb.class).value();
         webLogger.setDescription(descr);
-//        webLogger.setStart_time(new Date());
+        webLogger.setCreateTime(new Date());
         webLogger.setIp(IpUtil.getIpAddr(request));
 
         webLogger.setUrl(request.getRequestURL().toString());

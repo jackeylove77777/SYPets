@@ -3,6 +3,9 @@ import App from "./App.vue";
 import router from './router/index.js'
 import store from './store/index.js'
 import axios from 'axios'
+//引入bootstrap
+import 'bootstrap/dist/css/bootstrap.css' //引用bootstrap的样式
+import 'bootstrap/dist/js/bootstrap.min.js' //引用bootstrap的js
 //饿了么UI
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';

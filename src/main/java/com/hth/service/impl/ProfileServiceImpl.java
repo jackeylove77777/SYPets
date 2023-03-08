@@ -9,6 +9,7 @@ import com.hth.service.PostService;
 import com.hth.service.ProfileService;
 import com.hth.util.JWTUtil;
 import com.hth.util.TimeUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,6 +21,7 @@ import java.util.*;
 
 @Service
 @Transactional
+@Slf4j
 public class ProfileServiceImpl implements ProfileService {
     @Autowired
     RedisTemplate redisTemplate;

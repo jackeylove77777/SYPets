@@ -2,6 +2,21 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import Home from "../views/Home.vue";
+import IndexList from "../views/IndexList.vue";
+import EditPost from "../views/post/EditPost.vue";
+import DetailPost from "../views/post/DetailPost.vue";
+import CategoryList from "../views/CategoryList.vue";
+import Update from "../views/post/Update.vue";
+import Profile from "../views/Profile.vue";
+import Following from "../views/Following.vue";
+import Messages from "../views/Messages.vue";
+import MessageList from "../views/messages/MessageList.vue";
+import Search from "../views/Search.vue";
+import Admin from "../components/admin/Admin.vue";
+import User from "../views/admin/User.vue";
+import Post from "../views/admin/Post.vue";
+import EditProfile from "../views/EditProfile.vue";
 
 Vue.use(VueRouter)
 const originalPush = VueRouter.prototype.push;
@@ -10,9 +25,8 @@ VueRouter.prototype.push = function push(location) {
 };
 const routes = [
     {
-        path: '/',
-        name: 'home',
-        component: Home,
+        path:'/',
+        component:Home,
         children:[
             {
                 path:'/',
@@ -27,7 +41,7 @@ const routes = [
                 name:'EditPost',
                 component: EditPost,
                 meta:{
-                    title:'写文章'
+                    title: '写文章'
                 }
             },
             {
@@ -36,41 +50,39 @@ const routes = [
                 component: DetailPost
             },
             {
-                path:'/category/:name',
+                path: '/category/:name',
                 name:'CategoryList',
                 component: CategoryList,
-                meta:{
-                    title:'分类'
+                meta: {
+                    title: '分类'
                 }
-
             },
             {
-                path: '/update/:id',
+                path: 'update/:id',
                 component: Update,
-                meta:{
-                    title:'编辑文章'
+                meta: {
+                    title: '编辑文章'
                 }
             },
-
             {
-                path:'/profile/:username',
+                path: '/profile/:username',
                 component: Profile,
                 meta:{
-                    title:'个人主页'
+                    title: '个人主页'
                 }
             },
-            {
-                path: '/mention/:id',
-                component: ItemDetail,
-                meta:{
-                    title:'个人主页'
-                }
-            },
+            // {
+            //     path: '/mention/:id',
+            //     component: ItemDetail,
+            //     meta:{
+            //         title:'个人主页'
+            //     }
+            // },
             {
                 path: '/following',
                 component: Following,
-                meta:{
-                    title:'关注'
+                meta: {
+                    title: '关注'
                 }
             },
             {
@@ -78,78 +90,70 @@ const routes = [
                 component: Messages,
                 children:[
                     {
-                        path:'/messages/:id',
-                        component:MessageList
+                        path: '/messages/:id',
+                        component: MessageList
                     }
                 ],
                 meta:{
-                    title:'消息'
+                    title: '消息'
                 }
             },
             {
-                path: '/serach',
-                component: Serach,
-                meta:{
-                    title:'搜索'
+                path: '/search',
+                component: Search,
+                meta: {
+                    title: '搜索'
                 }
             }
-        ],
-
+        ]
     },
-    // {
-    //     path:'/admin',
-    //     name:'Admin',
-    //     component:Admin,
-    //     meta:{
-    //         title:'后台管理'
-    //     },
-    //     children:[
-    //         {
-    //             path:'/user',
-    //             component:User,
-    //         },
-    //         {
-    //             path:'/post',
-    //             component:Post,
-    //         },
-    //         {
-    //             path:'/report',
-    //             component:Report,
-    //         },
-    //     ]
-    // },
     {
-        path:'/home',
-        redirect:'/'
+        path: '/admin',
+        name: 'Admin',
+        component: Admin,
+        meta:{
+            title:"后台管理"
+        },
+        children: [
+            {
+                path: '/user',
+                component:User
+            },
+            {
+                path: '/post',
+                component: Post,
+            }
+        ]
     },
-    // {
-    //     path: '/editProfile',
-    //     component: EditProfile,
-    //     meta:{
-    //         title:'编辑个人信息'
-    //     }
-    // },
+    {
+        path: '/home',
+        redirect: '/'
+    },
     {
         path: '/login',
         component: Login,
         meta:{
-            title:'登录'
+            title: '登录'
         }
     },
     {
         path: '/register',
         component: Register,
+        meta: {
+            title: '注册'
+        }
+    },
+    {
+        path:'/editProfile',
+        component: EditProfile,
         meta:{
-            title:'注册'
+            title: '编辑个人信息'
         }
     }
-
-
 ]
 
 const router = new VueRouter({
     mode: 'history',
-    // base: process.env.BASE_URL,
     routes
 })
 

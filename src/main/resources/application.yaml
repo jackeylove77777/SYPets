@@ -49,10 +49,13 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+
 #七牛云存储
 #qiniu:
 #    accessKey:
 #    secretKey:
 #    bucket:
 #    prefix:
-
+logging:
+  level:
+    com.hth.mapper: debug

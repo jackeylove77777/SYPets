@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService {
             registerDto.setPassword(password);
             User newUser = BeanCopyUtils.copyBean(registerDto,User.class);
             newUser.setAvatar(avatar);
+            newUser.setSalt(salt);
             userMapper.insert(newUser);
             //删除验证秒
             redisTemplate.delete(registerDto.getEmail() + ":code");
@@ -167,7 +168,7 @@ public class UserServiceImpl implements UserService {
         //将md5加密后的密码与数据库存的密码进行比对，如果相同就进入修改
         if(user.getPassword().equals(lastPassword)){
             //验证两次新密码是否相同，前端已经验证过一遍了
-            if(dto.getNewPassword().equals(dto.getSencondPassword())){
+            if(dto.getNewPassword().equals(dto.getSecondPassword())){
                 //重新生成盐值，将新md5加密的新密码存入数据库
                 String salt=SaltUtil.getSalt(5);
                 String newPassword=new Md5Hash(dto.getNewPassword(),salt,1024).toHex();

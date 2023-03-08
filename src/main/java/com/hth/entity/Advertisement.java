@@ -4,16 +4,18 @@ import java.util.Date;
 
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 /**
  * 友链(Advertisement)表实体类
  *
  * @author makejava
- * @since 2023-02-20 23:58:18
+ * @since 2023-03-08 11:07:19
  */
 @SuppressWarnings("serial")
 @Data
@@ -21,13 +23,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @TableName("advertisement")
 public class Advertisement  {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId
     private Long id;
 
     
     private String name;
     
-    private String logo;
+    private String avatar;
     
     private String description;
     //网站地址
@@ -36,12 +38,8 @@ public class Advertisement  {
     private String status;
     
     private Long createBy;
-    @TableField(fill = FieldFill.INSERT)
+
     private Date createTime;
-    
-    private Long updateBy;
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
     //删除标志（0代表未删除，1代表已删除）
     private Integer delFlag;
 

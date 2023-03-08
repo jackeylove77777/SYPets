@@ -23,25 +23,24 @@ export default {
     clickItem(name){
       this.$router.push('/category/'+name)
     },
-    getdata(){
-      const _this = this
-      this.$http.get('/type/postTypeNum').then(res => {
-        if (res.data.status == 200) {
-          _this.typeList = res.data.data.typeList
+    getData(){
+      this.$http.get('/type/postTypeNum').then(res=>{
+        if(res.data.status==200){
+          this.typeList = res.data.data.typeList
         }
       })
-    }
+    },
   },
-  created() {
-    this.getdata()
+  created(){
+    this.getData()
   },
-  mounted() {
-    this.$bus.$on("updateList",()=>{
-      this.getdata()
+  mounted(){
+    this.$bus.$on('updateList',()=>{
+      this.getData()
     })
   },
-  beforeDestroy() {
-    this.$bus.$off("updateList")
+  beforeDestroy(){
+    this.$bus.$off('updateList')
   }
 }
 </script>

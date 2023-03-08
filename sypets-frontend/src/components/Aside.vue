@@ -21,7 +21,7 @@
 export default {
   name: "Aside",
   data(){
-    return{
+    return {
       isNowUser:true,
       user:{
         profile:{}
@@ -31,34 +31,30 @@ export default {
   },
   computed:{
     sex(){
-      if(this.user.sex===0)
-        return this.user.username
-      else if(this.user.sex===1)
-        return '他'
+      if(this.user.sex===0)return this.user.username
+      else if(this.user.sex===1)return '他'
       return '她'
     }
   },
+
   methods:{
     getData(){
-      const _this=this
       this.$http.get(this.url).then(res=>{
-
         if(res.data.status===200){
-          _this.user=res.data.data.user
+          this.user = res.data.data.user
         }
       })
     },
     getUserInfo(){
-      this.user=this.$store.getters.getUser
+      this.user = this.$store.getters.getUser
     },
+    //跳转主页方法
     to(username,index){
       this.$router.push("/profile/"+username)
       setTimeout(()=>{
         this.$bus.$emit("open",index)
-
       },1000)
-
-    }
+    },
   },
   mounted() {
     this.$http.get("/findUserDetails/"+this.$store.getters.getUser.username).then(res=>{
@@ -66,26 +62,30 @@ export default {
       this.getUserInfo()
     })
     this.$bus.$on('updateAside',(username)=>{
-      this.url = '/findUserDetails/' + username
-      this.isNowUser = false
+      this.url = "/findUserDetails/"+username
+      this.isNowUser = false;
       this.getData()
     })
     this.$bus.$on('NoupdateAside',()=>{
-      this.isNowUser = true
+      this.isNowUser=true
       this.getUserInfo()
+
     })
+    //关注
     this.$bus.$on('follow',()=>{
       let userInfo=this.$store.getters.getUser
       userInfo.profile.followings+=1
       this.$store.commit("SET_USERINFO",userInfo)
       this.user.profile.followers+=1
     })
+    //取消关注
     this.$bus.$on('unFollow',()=>{
       let userInfo=this.$store.getters.getUser
       userInfo.profile.followings-=1
       this.$store.commit("SET_USERINFO",userInfo)
       this.user.profile.followers-=1
     })
+    //收藏事件
     this.$bus.$on("collect",()=>{
       let userInfo=this.$store.getters.getUser
       userInfo.profile.collects+=1
@@ -93,6 +93,7 @@ export default {
       this.userInfo.profile.collects+=1
 
     })
+    //取消收藏事件
     this.$bus.$on("unCollect",()=>{
       let userInfo=this.$store.getters.getUser
       userInfo.profile.collects-=1
@@ -109,10 +110,9 @@ export default {
     this.$bus.$off("collect")
     this.$bus.$off("unCollect")
   }
-
-
 }
 </script>
+
 <style scoped>
 .aside{
   display: flex;

@@ -6,6 +6,8 @@ import com.hth.entity.PostDetail;
 import com.hth.entity.User;
 import com.hth.service.AdminService;
 import com.hth.service.PostService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @RequestMapping("/admin")
 @RestController
+@Api(value = "管理员接口",tags = {"管理员接口"})
 public class AdminController {
     @Autowired
     AdminService adminService;
@@ -34,6 +37,7 @@ public class AdminController {
     //通过id搜索用户
     @RequiresRoles("admin")
     @GetMapping("/getOne/{id}")
+    @ApiOperation("搜索一个用户")
     public Msg findOne(@PathVariable Integer id){
         User user = adminService.findById(id);
         List<User> userList = new ArrayList<>();

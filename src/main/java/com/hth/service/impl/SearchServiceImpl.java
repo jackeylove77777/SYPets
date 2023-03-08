@@ -23,9 +23,7 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public Map<String, List> search(String content) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<User>();
-        queryWrapper.select(User::getUsername);
-        queryWrapper.select(User::getAvatar);
-        queryWrapper.select(User::getId);
+        queryWrapper.select(User::getUsername,User::getAvatar,User::getId);
         queryWrapper.like(User::getUsername,content);
         List<User> users = userMapper.selectList(queryWrapper);
         List<PostDetail> postDetails = postService.serachPost(content);

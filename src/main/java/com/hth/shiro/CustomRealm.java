@@ -69,6 +69,7 @@ public class CustomRealm extends AuthorizingRealm {
             throw new UnknownAccountException();
         }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        //如果用户名等于admin，则有admin Role
         if(user.getUsername().equals("admin")){
             info.addRole("admin");
         }

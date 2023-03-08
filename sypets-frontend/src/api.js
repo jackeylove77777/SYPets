@@ -14,7 +14,6 @@ axios.interceptors.request.use(config=>{
 })
 
 axios.interceptors.response.use(response=>{
-    console.log('axios interceptors: ')
     let res=response.data.status
     if(response.config.url==="/message/exists"){
         return response
@@ -29,7 +28,7 @@ axios.interceptors.response.use(response=>{
     if(res===401||res==="401"){
         router.push("/login")
         store.commit("REMOVE_INFO")
-        Element.Message.error('登录失效', {duration: 3 * 1000})
+        Element.Message.error('未登录', {duration: 3 * 1000})
         return false
     }
     if(res)

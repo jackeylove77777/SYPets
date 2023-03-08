@@ -2,7 +2,7 @@
   <el-container>
     <el-container>
       <div class="left-el-aside"><Category></Category></div>
-      <el-header :class="isFixed== true?'isFixed':''">
+      <el-header :class="isFixed=== true?'isFixed':''">
         <Header></Header>
       </el-header>
       <el-main>
@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import Header from "../components/Header";
-import Aside from "../components/Aside";
-import Category from "../components/Category";
+import Header from "../components/Header.vue";
+import Aside from "../components/Aside.vue";
+import Category from "../components/Category.vue";
 
 export default {
   name: "Home",
@@ -32,11 +32,7 @@ export default {
       this.$nextTick(() => {
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
-        if (scrollTop > 10) {
-          this.isFixed = true;
-        } else {
-          this.isFixed = false;
-        }
+        this.isFixed = scrollTop > 10;
       })
     },
     toTop() {

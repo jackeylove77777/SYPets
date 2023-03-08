@@ -28,7 +28,7 @@ public class InteractionServiceImpl implements InteractionService {
      */
     @Override
     public int onStart(Integer postId) {
-        Integer userId=JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
+        int userId=JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
         redisTemplate.opsForSet().add("post:" + postId + ":start",userId);
         //发送点赞消息
         messageService.addStartMessage(userId,postId,4);
@@ -42,7 +42,7 @@ public class InteractionServiceImpl implements InteractionService {
      */
     @Override
     public int unStart(Integer postId) {
-        Integer userId=JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
+        int userId=JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
         redisTemplate.opsForSet().remove("post:" + postId + ":start",userId);
         return 1;
     }

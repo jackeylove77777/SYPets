@@ -23,7 +23,7 @@ public class JWTUtil {
      */
     public static String createToken(Integer id) {
         try {
-            Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+            Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME*1000);
             Algorithm algorithm = Algorithm.HMAC256(SECRET);
             // 附带id信息
             return JWT.create()

@@ -3,6 +3,7 @@ package com.hth.controller;
 import com.hth.dto.EmailDto;
 import com.hth.entity.LimitIp;
 import com.hth.entity.Msg;
+import com.hth.log.TestSuccess;
 import com.hth.service.EmailService;
 import com.hth.log.Logweb;
 import com.hth.util.IpLimitUtil;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 @RestController
 @Slf4j
+@TestSuccess
 public class EmailController {
     @Autowired
     EmailService emailService;
@@ -35,6 +37,7 @@ public class EmailController {
      * @return
      * @throws MessagingException
      */
+    @TestSuccess
     @PostMapping("/sendEmail")
     public Msg sendEmail(@Validated @RequestBody EmailDto email, HttpServletRequest request) throws MessagingException {
         System.out.println(email);
@@ -52,7 +55,6 @@ public class EmailController {
         }
         //发送邮件
         emailService.sendRegisterEmail(email.getEmail());
-        log.error("!!!!!!!!!!!!!!!!!!!!");
         return Msg.success("邮件已发送,请在30分钟内完成注册");
     }
 

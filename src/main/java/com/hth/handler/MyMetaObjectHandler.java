@@ -15,9 +15,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         Integer userId= JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
-
-        this.setFieldValByName("createTime", new Date(), metaObject);
-        this.setFieldValByName("updateTime", new Date(), metaObject);
+        System.out.println(1111111);
+        this.setFieldValByName("create_time", new Date(), metaObject);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.hth.dto.UpdatePasswordDto;
 import com.hth.entity.Msg;
 import com.hth.entity.User;
 import com.hth.log.Logweb;
+import com.hth.log.TestSuccess;
 import com.hth.service.UserService;
 import com.hth.util.IpUtil;
 import com.hth.util.JWTUtil;
@@ -28,6 +29,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @TestSuccess
     @ApiOperation(value = "用户注册", notes = "填写用户名，密码")
     @PostMapping("/register")
     public Msg register(@Validated @RequestBody RegisterDto registerDto)
@@ -39,6 +41,7 @@ public class UserController {
         return Msg.fail(msg);
     }
 
+    @TestSuccess
     @Logweb("用户登录")
     @ApiOperation(value = "用户登录")
     @PostMapping("/login")
@@ -66,6 +69,7 @@ public class UserController {
         User user = userService.findUserByUserName(username);
         return user.getAvatar();
     }
+    @TestSuccess
     @GetMapping("/findUserDetails/{username}")
     public Msg findUserDetails(@PathVariable String username){
         return Msg.success().add("user",userService.findUserDetails(username));
@@ -73,6 +77,7 @@ public class UserController {
 
     @Logweb("修改用户名")
     @GetMapping("/updateUserName")
+    @TestSuccess
     public Msg updateUserName(@RequestParam(required = true) String userName){
         if(userName!=null&&userName.length()>3&&userName.length()<20){
             boolean ok = userService.updateUserName(userName);
@@ -83,6 +88,7 @@ public class UserController {
         return Msg.fail("格式错误");
     }
 
+    @TestSuccess
     @GetMapping("/updateSex")
     public Msg updateSex(@RequestParam(required = true) Integer sex){
         if(sex==1||sex==2){
@@ -91,6 +97,7 @@ public class UserController {
         }
         return Msg.success("输入有误");
     }
+    @TestSuccess
     @Logweb("修改个人简介")
     @GetMapping("/updateInfo")
     public Msg  updateInfo(@RequestParam(required = true) String info){
@@ -99,6 +106,7 @@ public class UserController {
     }
     @Logweb("修改密码")
     @PostMapping("/updatePassword")
+    @TestSuccess
     public Msg updatePassword(@RequestBody @Validated UpdatePasswordDto dto) {
         Map<String, String> map = userService.updatePassword(dto);
         String message = map.get("message");
@@ -109,6 +117,7 @@ public class UserController {
 
     @PostMapping("/findPassword")
     public Msg findPassword(@RequestBody @Validated FindPwdSendEmailDto findPwdSendEmailDto,HttpServletRequest request)throws MessagingException{
+        System.out.println(findPwdSendEmailDto);
         String ip = IpUtil.getIpAddr(request);
         Map<String,String> msg = userService.findPassword(findPwdSendEmailDto,ip);
         if(msg.get("message").equals("success")){

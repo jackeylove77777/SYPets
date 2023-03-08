@@ -15,10 +15,14 @@ import com.hth.util.JWTUtil;
 import com.hth.util.ReplaceUtil;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
+@Transactional
 public class CommentServiceImpl implements CommentService {
     @Autowired
     UserMapper userMapper;
@@ -64,7 +68,7 @@ public class CommentServiceImpl implements CommentService {
         for(Comment c:commentList){
             //找出这条评论的回复内容
             LambdaQueryWrapper<Answer> answerWrapper = new LambdaQueryWrapper<>();
-            answerWrapper.eq(Answer::getCommentId,c.getUid());
+            answerWrapper.eq(Answer::getCommentId,c.getId());
             c.setAnswerList(answerMapper.selectList(answerWrapper));
         }
         return commentList;

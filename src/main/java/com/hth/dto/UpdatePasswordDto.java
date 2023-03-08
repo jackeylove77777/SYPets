@@ -21,5 +21,5 @@ public class UpdatePasswordDto implements Serializable {
 
     @Size(min = 6,max = 15)
     @NotBlank(message = "密码不能为空")
-    private String sencondPassword;
+    private String secondPassword;
 }

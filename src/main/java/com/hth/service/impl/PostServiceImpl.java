@@ -16,6 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,6 +36,7 @@ public class PostServiceImpl implements PostService {
     public int addPost(Post post) {
         Integer userId = JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
         post.setUid(userId);
+        post.setCreateTime(new Date());
         postMapper.insert(post);
         return post.getId();
     }

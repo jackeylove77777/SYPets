@@ -1,7 +1,9 @@
 package com.hth.controller;
 
 import com.hth.entity.Msg;
+import com.hth.log.TestSuccess;
 import com.hth.service.FollowingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Slf4j
+@TestSuccess
 @RequestMapping("/following")
 public class FollowingController {
     @Autowired
@@ -21,6 +25,7 @@ public class FollowingController {
      * @return
      */
     @GetMapping("/findPost")
+    @TestSuccess
     public Msg findFollowingPost(@RequestParam(name = "pagenum",defaultValue = "1")Integer page,
                                  @RequestParam(name ="pagesize",defaultValue = "5")Integer size){
         return Msg.success().add("postList",followingService.findFollowingPost(page, size));
@@ -30,8 +35,9 @@ public class FollowingController {
      * 找出已经关注的所有用户
      * @return
      */
-    @GetMapping("/findFowings")
-    public Msg findFowings(){
+    @GetMapping("/findFollowings")
+    @TestSuccess
+    public Msg findFollowings(){
         return Msg.success().add("followers",followingService.findFowings());
     }
 }
