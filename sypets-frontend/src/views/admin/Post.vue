@@ -9,46 +9,58 @@
         </el-col>
       </el-row>
     </el-card>
-    <el-table :data="postlist" border stripe>
-      <el-table-column type="index" label="#"></el-table-column>
-      <el-table-column prop="id" label="id"></el-table-column>
-      <el-table-column prop="title" label="标题">
-        <template slot-scope="scope">
-          <span v-html="linkPost(scope.row.title,scope.row.id)"></span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="descr" label="描叙"></el-table-column>
-      <el-table-column prop="create_time" label="发布时间"></el-table-column>
-      <el-table-column prop="username" label="作者">
-        <template slot-scope="scope">
-          <span v-html="link(scope.row.username)"></span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="type" label="文章类型">
-        <template slot-scope="scope">
-          <span>{{types[scope.row.type_id]}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="author" label="原创"></el-table-column>
-      <el-table-column label="状态">
-        <template slot-scope="scope">
-          <el-switch v-model="scope.row.status===1" @change="postStateChanged(scope.row)"></el-switch>
-        </template>
-      </el-table-column>
-    </el-table>
+    <!--     表格-->
+    <table class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th class="text-center">id</th>
+        <th class="text-center">标题</th>
+        <th class="text-center">描述</th>
+        <th class="text-center">作者</th>
+        <th class="text-center">内容</th>
+        <th class="text-center">状态</th>
+        <th class="text-center">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="post in postlist" :key="post.id">
+        <td><span @click="linkPost(post.id)" style="cursor: pointer" class="text-primary text-center">{{post.id}}</span></td>
+        <td class="text-center lh-lg">{{post.title}}</td>
+        <td class="text-center lh-lg">{{post.description}}</td>
+        <td class="text-center lh-lg"><span @click="link(post.uid)" style="cursor: pointer" class="text-primary text-center">{{post.username}}</span></td>
+        <td class="text-center text-primary lh-lg"><span @click="openContent(post.content)" style="cursor: pointer">查看文章内容</span></td>
+        <td :class="post.status===1?'text-success text-center lh-lg fs-5':'text-danger text-center lh-lg fs-5'">{{post.status}}</td>
+        <td class="text-center">
+          <el-button type="warning" class="my-1" @click="postStateChanged(post)">修改状态</el-button>
+          <el-button type="danger" @click="deleteById(post.id)">删除文章</el-button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
     <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
-        :page-sizes="[2, 5, 10, 15]"
+        :page-sizes="[ 5, 10, 15]"
         :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
     ></el-pagination>
+
+    <el-dialog
+        title="文章内容"
+        :visible.sync="showPostContent"
+        width="30%"
+        :before-close="closeDialog">
+      <div v-html="htmlContent" class="bg-gradient border p-2 bg-light" style="min-height: 400px"></div>
+      <div class="d-flex flex-row-reverse px-1 mt-4"><el-button @click="closeDialog" type="primary">确定</el-button></div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import {marked} from "marked";
+
 export default {
   name: "Post",
   data(){
@@ -64,7 +76,9 @@ export default {
       }],
       total: 0,
       query: '',
-      types:['','学习','生活','美食','旅游','想法','其他']
+      types:['','学习','生活','美食','旅游','想法','其他'],
+      showPostContent:false,
+      htmlContent:null,
     }
   },
   methods:{
@@ -74,6 +88,14 @@ export default {
         this.postlist=res.data.data.postlist.list
         this.total=res.data.data.postlist.total
       })
+    },
+    openContent(content){
+      this.htmlContent = marked(content)
+      this.showPostContent=true;
+    },
+    closeDialog(){
+      this.showPostContent=false
+      this.htmlContent=null
     },
     postStateChanged(post){
       this.$http.get("/admin/changePostStatus/"+post.id).then(res=>{
@@ -121,16 +143,24 @@ export default {
 
       }
     },
-    link(data){
-      return "<a href='/profile/"+data+"'><el-link type='primary'>"+data+"</el-link></a>"
+    deleteById(id){
+      this.$http.delete('/admin/post/'+id).then(res=>{
+        this.$message.info(res.data.message)
+      })
+      this.postlist = this.postlist.filter(x=>x.id!==id)
     },
-    linkPost(title,id){
-      return "<a href='/detail/"+id+"'>"+title+"</a>"
+    link(data){
+      this.$router.push('/profile/'+data)
+    },
+    linkPost(id){
+      this.$router.push('/detail/'+id)
     }
   },
   created(){
     this.getPostList()
   }
-
 }
 </script>
+<style scoped>
+
+</style>

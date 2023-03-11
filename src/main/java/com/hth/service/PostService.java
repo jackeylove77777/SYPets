@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
 import com.hth.entity.Post;
 import com.hth.entity.PostDetail;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public interface PostService {
     List<PostDetail> findPostByUserId(Integer id);
 
     boolean delete(Integer id);
+    void adminDelete(Integer id);
 
     PostDetail findPostByIds(Integer id);
 

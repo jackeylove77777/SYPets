@@ -36,7 +36,7 @@ public class Post  {
     private Integer status;
     
     private Integer typeId;
-    
+    //考虑到转发，但是未实现
     private Integer author;
 
     private Date createTime;

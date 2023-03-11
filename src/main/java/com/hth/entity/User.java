@@ -39,7 +39,7 @@ public class User  {
     private String privateInfo;
     
     private Integer sex;
-    
+    //1代表正常，0代表异常
     private Integer status;
     private Date createTime;
 

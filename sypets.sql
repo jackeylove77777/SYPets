@@ -151,6 +151,30 @@ CREATE TABLE `answer` (
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment '评论的回复';
 
+
+
+create table if not exists `stray`(
+                                      `id` int(11) primary key  NOT NULL AUTO_INCREMENT,
+                                      description varchar(128) default null,
+                                      `uid` int(11) DEFAULT NULL comment '发布的用户',
+                                      publish_time datetime DEFAULT NULL,
+                                      image varchar(128) DEFAULT NULL comment '照片',
+                                      address varchar(128) default null comment '发现地点',
+                                      status int default 0 comment '0为未审核'
+);
+
+create table if not exists `foster`(
+                                       `id` int(11) primary key NOT NULL AUTO_INCREMENT,
+                                       description varchar(128) default null,
+                                       `uid` int(11) DEFAULT NULL comment '发布的用户',
+                                       publish_time datetime DEFAULT NULL,
+                                       image varchar(128) DEFAULT NULL comment '照片',
+                                       address varchar(128) default null comment '地点',
+                                       contaction varchar(128) default null comment '联系方式',
+                                       status int default 0 comment '0为未审核',
+                                       solve int default 0 comment '0代表未给宠物找到新主人'
+);
+
 -- ----------------------------
 -- Table structure for comment
 -- ----------------------------
@@ -175,17 +199,6 @@ INSERT INTO `msg_type` VALUES ('2', '回复');
 INSERT INTO `msg_type` VALUES ('3', '提到');
 INSERT INTO `msg_type` VALUES ('4', '点赞');
 INSERT INTO `msg_type` VALUES ('5', '关注');
-INSERT INTO `type` VALUES ('1', '学习', null);
-INSERT INTO `type` VALUES ('2', '生活', null);
-INSERT INTO `type` VALUES ('3', '美食', null);
-INSERT INTO `type` VALUES ('4', '旅游', null);
-INSERT INTO `type` VALUES ('5', '想法', null);
-INSERT INTO `type` VALUES ('6', '其他', null);
 
 
-DROP TABLE IF EXISTS `edit_post`;
-CREATE TABLE `edit_post` (
-                             `id` int(11) NOT NULL,
-                             `content` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

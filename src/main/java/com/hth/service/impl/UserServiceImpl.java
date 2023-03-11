@@ -226,4 +226,9 @@ public class UserServiceImpl implements UserService {
         map.put("message","success");
         return map;
     }
+
+    @Override
+    public void delete(Integer id) {
+        userMapper.deleteById(id);
+    }
 }

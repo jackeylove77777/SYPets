@@ -48,7 +48,7 @@ public class WebSocket {
 
     /**
      * 点对点广播消息
-     *
+     * InteractionService生产消息，并发送到msg.fanout.queue，此方法监听此队列，当发现有新的消息产生，则对相应的用户进行提示
      * @param userId 要广播的用户id
      * @param msg    消息
      */
@@ -61,7 +61,7 @@ public class WebSocket {
         WebSocket socket = hashMap.getOrDefault(userId, null);
         if(socket!=null){
             log.info("发送消息:"+userId);
-            socket.session.getBasicRemote().sendText("有消息");
+            socket.session.getBasicRemote().sendText("有新的通知");
         }
     }
 

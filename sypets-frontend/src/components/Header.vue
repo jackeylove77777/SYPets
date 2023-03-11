@@ -2,16 +2,16 @@
   <div class="header">
 <!--    左-->
     <div class="title">
-      <img src="../assets/logo.png" width="50px" height="50px" alt="">
+      <img src="../assets/pcat.png" width="60px" height="50px" alt="">
       <span>思远宠物论坛</span>
     </div>
 <!--    中-->
     <el-menu  :default-active="$route.path"  class="el-menu-demo" mode="horizontal" router  >
       <el-menu-item  :index="'/'" ><i class="el-icon-s-home"></i>首页</el-menu-item>
-      <el-menu-item :index="'/following'"><i class="el-icon-user-solid"></i>关注</el-menu-item>
-      <el-menu-item :index="'/search'"><i class="el-icon-search"></i>发现</el-menu-item>
-      <el-menu-item  :index="'/messages'"><i class="el-icon-message-solid"></i>消息 <el-badge v-show="message" value="new" /></el-menu-item>
-      <el-menu-item   :index="url"><i class="el-icon-user"></i>个人主页</el-menu-item>
+      <el-menu-item :index="'/following'" ><i class="el-icon-user-solid"></i>关注</el-menu-item>
+      <el-menu-item :index="'/search'" ><i class="el-icon-search"></i>发现</el-menu-item>
+      <el-menu-item  :index="'/messages'" ><i class="el-icon-message-solid"></i>消息 <el-badge v-show="message" value="new" /></el-menu-item>
+      <el-menu-item  :index="url" ><i class="el-icon-user"></i>个人主页</el-menu-item>
     </el-menu>
 
     <div class="create">
@@ -19,12 +19,12 @@
     </div>
 <!--    头像-->
     <div class="user">
-      <span>{{userInfo.username}}</span>
-      <el-dropdown @command="handleCommand">
+      <span >{{userInfo.username}}</span>
+      <el-dropdown @command="handleCommand" class="mt-2">
                 <span class="el-dropdown-link">
                     <i class="el-icon-arrow-down el-icon--right"><el-avatar :src="userInfo.avatar"></el-avatar></i>
                 </span>
-        <el-dropdown-menu slot="dropdown"  >
+        <el-dropdown-menu slot="dropdown" >
           <el-dropdown-item command="profile"><i class="el-icon-user">个人主页</i></el-dropdown-item>
           <el-dropdown-item command="logout" divided><i class="el-icon-warning-outline">退出</i></el-dropdown-item>
         </el-dropdown-menu>
@@ -69,12 +69,6 @@ export default {
       else if(command==="profile"){
         this.profile()
       }
-    },
-    handleScroll(){
-      this.$nextTick(()=>{
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        this.isFixed = scrollTop>10
-      })
     },
     exists(){
       this.$http.get("/message/exists").then(res=>{
@@ -124,7 +118,6 @@ export default {
     this.$bus.$off('noMessage')
   },
   destroyed() {
-    window.clearInterval()
     this.socket.onclose = this.close
   }
 }
@@ -142,12 +135,17 @@ export default {
 }
 .user{
   margin-left: 5%;
-  color: #0086b3;
+  color: #3FC1C9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .el-menu-demo{
   position: absolute;
   margin-left: 19%;
+  background-color: #364F6B;
 }
+
 .create{
   margin-left: 45%;
   margin-top: 5px;

@@ -17,6 +17,7 @@ import Admin from "../components/admin/Admin.vue";
 import User from "../views/admin/User.vue";
 import Post from "../views/admin/Post.vue";
 import EditProfile from "../views/EditProfile.vue";
+import NotFound from "../views/NotFound.vue";
 
 Vue.use(VueRouter)
 const originalPush = VueRouter.prototype.push;
@@ -149,6 +150,13 @@ const routes = [
         meta:{
             title: '编辑个人信息'
         }
+    },
+    {
+        path:'/notfound',
+        component: NotFound,
+        meta: {
+            title: '404 not found'
+        }
     }
 ]
 
@@ -160,6 +168,9 @@ const router = new VueRouter({
 router.beforeEach((to,form,next)=>{
     if (to.meta.title) {
         document.title = to.meta.title
+    }
+    if (to.matched.length === 0) {  // 如果未匹配到路由
+        next('/notfound')
     }
     if(to.path==='/login')return next()
     if(to.path==='/register')return next()

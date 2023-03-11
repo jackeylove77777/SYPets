@@ -9,29 +9,45 @@
          </el-col>
        </el-row>
      </el-card>
-     <el-table :data="userlist" border stripe>
-       <el-table-column type="index" label="#"></el-table-column>
-       <el-table-column prop="id" label="id"></el-table-column>
-       <el-table-column prop="username" label="姓名">
-         <template slot-scope="scope">
-           <span v-html="link(scope.row.username)"></span>
-         </template>
-       </el-table-column>
-       <el-table-column prop="email" label="邮箱"></el-table-column>
-       <el-table-column prop="sex" label="性别"></el-table-column>
-       <el-table-column prop="private_info" label="简介"></el-table-column>
-       <el-table-column label="状态">
-         <template slot-scope="scope">
-           <el-switch v-model="scope.row.status===1" @change="userStateChanged(scope.row)"></el-switch>
-         </template>
-       </el-table-column>
-     </el-table>
+     <div v-if="userlist.length===0" class="h-50 text-center text-muted fs-4 fw-bold ">
+       空空如也
+     </div>
+<!--     表格-->
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center">用户名</th>
+          <th class="text-center">性别</th>
+          <th class="text-center">邮箱地址</th>
+          <th class="text-center">头像</th>
+          <th class="text-center">状态</th>
+          <th class="text-center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="user in userlist" :key="user.id">
+          <td class="tableUint lh-lg text-center" style="cursor: pointer" @click="link(user.username)">{{user.username}}</td>
+          <td class="tableUint lh-lg text-truncate text-center">{{user.sex===0?'未知':(user.sex===1?'男':'女')}}</td>
+          <td class="lh-lg text-center" style="width: 200px">{{user.email}}</td>
+          <td style="width: 200px" class="text-center">
+            <a :href="user.avatar" target="_blank">
+              <img :src="user.avatar" alt="..." style="width: 100px;height: 100px" class="object-fit-cover rounded-1">
+            </a>
+          </td>
+          <td style="width: 100px" :class="user.status===1?'text-success':'text-danger'">{{user.status===1?'正常':'异常'}}</td>
+          <td class="text-center">
+              <el-button type="warning" class="my-2" @click="userStateChanged(user)">修改状态</el-button>
+              <el-button type="danger" @click="deleteById(user.id)">删除用户</el-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 <!--     分页-->
      <el-pagination
          @size-change="handleSizeChange"
          @current-change="handleCurrentChange"
          :current-page="queryInfo.pagenum"
-         :page-sizes="[2, 5, 10, 15]"
+         :page-sizes="[5, 10, 15]"
          :page-size="queryInfo.pagesize"
          layout="total, sizes, prev, pager, next, jumper"
          :total="total"
@@ -55,6 +71,25 @@ export default {
       query:''
     }
   },
+  computed:{
+    sex(val){
+      if(val===1){
+        return "男"
+      }
+      else if(val===2){
+        return "女"
+      }
+      return "未知"
+    },
+
+    status(val){
+      if(val===1){
+        return '正常'
+      }else{
+        return '异常'
+      }
+    },
+  },
   methods:{
     getUserList(){
       this.$http.get("/admin/getUser",{params:this.queryInfo}).then(res=>{
@@ -76,6 +111,7 @@ export default {
         }
       })
     },
+
     // 监听 pagesize改变
     handleSizeChange (newSize) {
       this.queryInfo.pagesize = newSize
@@ -106,9 +142,14 @@ export default {
         console.log(num)
       }
     },
+    deleteById(id){
+      this.$http.delete('/admin/user/'+id).then(res=>{
+        this.$message.info(res.data.message)
+      })
+      this.userlist = this.userlist.filter(x=>x.id!==id)
+    },
     link(data){
-
-      return "<a href='/profile/"+data+"'><el-link type='primary'>"+data+"</el-link></a>"
+      this.$router.push('/profile/'+data)
     }
   },
   created() {
@@ -116,3 +157,15 @@ export default {
   }
 }
 </script>
+<style scoped>
+.mytable{
+  min-height: 800px;
+}
+.tableUint{
+  width: 150px;
+}
+.unitAvatar{
+  width: 400px;
+}
+
+</style>

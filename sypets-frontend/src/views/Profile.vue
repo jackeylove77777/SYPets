@@ -26,6 +26,9 @@ export default {
       const _this=this
       if(!this.IsMe)
         this.$http.get("/profile/findUserProfile/"+this.$route.params.username).then(res=>{
+          if(res.status===404){
+            this.$router.push('/notfound')
+          }
           if(res.data.status===200){
             _this.user=res.data.data.user
             _this.isfollow=res.data.data.isfollower
@@ -33,6 +36,7 @@ export default {
           }
           else{
             this.$message.error("用户不存在!")
+            this.$router.push('/notfound')
           }
         })
       else{

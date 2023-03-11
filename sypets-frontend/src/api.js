@@ -18,7 +18,7 @@ axios.interceptors.response.use(response=>{
     if(response.config.url==="/message/exists"){
         return response
     }
-    if(response.data.code==="401"||response.data.code===401)
+    if(response.status===401||response.data.status===401)
     {
         router.push("/login")
         store.commit("REMOVE_INFO")

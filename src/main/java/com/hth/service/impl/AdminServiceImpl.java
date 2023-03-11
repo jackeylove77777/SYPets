@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean changeStatus(Integer id) {
         User user = userMapper.selectById(id);
-        if(user==null||user.getUsername().equals("admin"))return false;
+        if(user==null)return false;
         if(user.getStatus()==1)user.setStatus(0);
         else user.setStatus(1);
         userMapper.updateById(user);

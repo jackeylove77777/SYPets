@@ -31,14 +31,6 @@ export default {
     read(id){
       this.$http.get('/message/read/'+id).then(res=>{
         if(res.data.status===200){
-          for(let i=0;i<this.list.length;i++){
-            if(this.list[i].id===id){
-              if(this.list[i].status===1){
-                this.$bus.$emit('change',this.route.params.id)
-              }
-              break
-            }
-          }
           this.getData()
           this.$message.success('success')
         }else{
@@ -52,14 +44,6 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        let isNew = false
-        for(let i=0;i<this.list.length;i++){
-          if(this.list[i].id===id){
-            if(this.list[i].status===1)
-              isNew=true
-            break
-          }
-        }
         this.$http.get("/message/delete/"+id).then(res=>{
 
           if(res.data.status===200) {
@@ -70,8 +54,6 @@ export default {
                 break
               }
             }
-            if(isNew)
-              this.$bus.$emit("change",this.$route.params.id)
             this.$message({
               type: 'success',
               message: '删除成功!'
@@ -85,7 +67,14 @@ export default {
         });
       });
     }
-  }
+  },
+  mounted() {
+    this.getData()
+  },
+  beforeRouteUpdate(to,from,next){
+    next()
+    this.getData()
+  },
 }
 </script>
 

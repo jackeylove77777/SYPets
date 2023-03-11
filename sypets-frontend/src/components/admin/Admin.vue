@@ -3,10 +3,10 @@
     <!-- 头部 -->
     <el-header>
       <div>
-        <img src="../../assets/logo.png" alt />
-        <span>思远宠物论坛后台管理系统</span>
+        <img src="../../assets/pcat.png" class="mx-2" />
+        <span class="mx-2">思远宠物论坛后台管理系统</span>
       </div>
-      <el-button type="info" @click="logout">退出</el-button>
+      <el-button type="primary" @click="logout">退出</el-button>
     </el-header>
     <!-- 主体 -->
     <el-container>
@@ -40,16 +40,15 @@ export default {
   data () {
     return {
       // 左侧菜单数据
-      menuList: [{'id':'125','authName':'用户管理',path:'user'},{'id':'103','authName':'文章管理',path:'post'},{'id':'101','authName':'举报处理',path:'report'}],
+      menuList: [{'id':'125','authName':'用户管理',path:'user'},{'id':'103','authName':'文章管理',path:'post'}],
       iconObj: {
         '125': 'iconfont icon-user',
         '103': 'iconfont icon-baobiao',
-        '101': 'iconfont icon-lock_fill',
       },
       // 默认不折叠
       isCollapse: false,
       // 被激活导航地址
-      activePath: ''
+      activePath: '用户管理'
     }
   },
   created () {
@@ -72,7 +71,7 @@ export default {
   height: 100%;
 }
 .el-header {
-  background-color: #373f41;
+  background-color: #252A34;
   display: flex;
   justify-content: space-between;
   padding-left: 0;

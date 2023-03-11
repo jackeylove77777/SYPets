@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -131,10 +132,19 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<MessageType> findMessageTypeNum() {
         int uid=JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
-        LambdaQueryWrapper<MessageType> queryWrapper = new LambdaQueryWrapper<>();
-        List<MessageType> messageTypeNum = msgTypeMapper.selectList(queryWrapper);
-        messageTypeNum.forEach(m->m.setValue(uid));
-        return messageTypeNum;
+        LambdaQueryWrapper<Message> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Message::getToId,uid);//找出当前用户所有的消息
+        queryWrapper.ne(Message::getStatus,0);//0代表删除
+        List<Message> messages = messageMapper.selectList(queryWrapper);
+        //消息类型
+        LambdaQueryWrapper<MessageType> msgTypeWrapper = new LambdaQueryWrapper<>();
+        List<MessageType> types = msgTypeMapper.selectList(msgTypeWrapper);
+
+        for(MessageType type : types){
+            int size = messages.stream().filter(m -> m.getTypeId() == type.getId()).collect(Collectors.toList()).size();
+            type.setValue(size);
+        }
+        return types;
     }
 
     /**
@@ -148,6 +158,7 @@ public class MessageServiceImpl implements MessageService {
         LambdaQueryWrapper<Message> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Message::getTypeId,typeId);
         queryWrapper.eq(Message::getToId,uid);
+        queryWrapper.ne(Message::getStatus,0);//删除
         List<Message> messageList = messageMapper.selectList(queryWrapper);
         messageList.sort((o1, o2) -> {
             if(o1.getStatus()>o2.getStatus())//未读优先

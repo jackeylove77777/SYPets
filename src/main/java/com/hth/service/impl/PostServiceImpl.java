@@ -109,14 +109,18 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public boolean delete(Integer id) {
-        //只有作者本人才能删除
+        //只有作者本人才能删除或者Admin
         Post p = findPostById(id);
         if(p.getUid().equals(JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal()))){
             postMapper.deleteById(id);
             return true;
         }
         return false;
+    }
 
+    @Override
+    public void adminDelete(Integer id) {
+        postMapper.deleteById(id);
     }
 
     @Override
@@ -155,7 +159,15 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Boolean changeStatus(Integer id) {
-        return null;
+        Post post = postMapper.selectById(id);
+        if(post==null)
+            return false;
+        if(post.getStatus()==1)
+            post.setStatus(0);
+        else
+            post.setStatus(1);
+        postMapper.updateById(post);
+        return true;
     }
 
 

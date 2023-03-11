@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <i class="el-icon-menu" style="margin-left: 0;color: #409EFF">文章类型</i>
-    <div class="category">
-      <el-tooltip v-for="(item,index) in typeList" :content="'点击查看'+item.name+'类型的文章'" placement="right" effect="light">
-        <el-tag  @click="clickItem(item.name)" :type="color[index]">{{item.name +' '+item.type_num}}</el-tag>
-      </el-tooltip>
-    </div>
-
+  <div class="category-box">
+    <el-menu>
+      <el-menu-item index="2" v-for="type in typeList" :key="type.id" @click="clickItem(type.name)">
+        <span slot="title">{{type.name +':'+type.type_num}}</span>
+      </el-menu-item>
+    </el-menu>
   </div>
 </template>
 
@@ -51,10 +49,10 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
 }
-.el-tag{
-  margin-top: 8px;
-  margin-bottom: 8px;
+.category-box{
+  height: auto;
+  background-color: white;
+  padding: 8px;
 }
 </style>

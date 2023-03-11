@@ -4,6 +4,7 @@ import com.hth.entity.Message;
 import com.hth.entity.MessageType;
 import com.hth.entity.Msg;
 import com.hth.log.Logweb;
+import com.hth.log.TestSuccess;
 import com.hth.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,10 +29,11 @@ public class MessageController {
         return Msg.success().add("exists",messageService.exitMessage());
     }
     /**
-     * 返回消息的所有类型
+     * 返回当前用户未阅读的消息的所有类型及其数量
      * @return
      */
     @GetMapping("/findMessageTypeNum")
+    @TestSuccess
     public Msg findMessageTypeNum(){
         List<MessageType> messageTypeNum = messageService.findMessageTypeNum();
         return Msg.success().add("data",messageTypeNum);
@@ -43,29 +45,33 @@ public class MessageController {
      * @return
      */
     @GetMapping("/findMessageById/{id}")
+    @TestSuccess
     public Msg findMessageById(@PathVariable Integer id){
         List<Message> messageList = messageService.findMessageByTypeId(id);
+        System.out.println(messageList);
         return Msg.success().add("list",messageList);
     }
 
     /**
-     * 消息标记为已读
+     * 消息标记为已读  1代表已读
      * @param id 消息的id
      * @return
      */
     @Logweb("已读消息")
     @GetMapping("/read/{id}")
+    @TestSuccess
     public Msg read(@PathVariable Integer id){
         boolean up = messageService.update(id,2);
         return up?Msg.success("success"):Msg.fail("error");
     }
     /**
-     * 删除消息
+     * 删除消息    0代表删除
      * @param id
      * @return
      */
     @Logweb("删除消息")
     @GetMapping("/delete/{id}")
+    @TestSuccess
     public Msg delete(@PathVariable Integer id){
         boolean up = messageService.update(id,0);
         return up?Msg.success("success"):Msg.fail("error");

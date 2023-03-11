@@ -30,6 +30,7 @@ export default {
   },
   methods:{
     click(id){
+      console.log(id)
       this.$router.push('/messages/'+id)
     },
     handleScroll(){

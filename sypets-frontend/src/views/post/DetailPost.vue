@@ -144,16 +144,16 @@ export default {
       let id=this.$route.params.postId
       const _this=this
       this.$http.get("/post/findPostById/"+id).then(res=>{
-
+        if(res.status===404){
+          this.$router.push('/notfound')
+        }
         if(res.data.status===200) {
           _this.data = res.data.data.data
           _this.data.content = marked(res.data.data.data.content)
         }
         else{
           _this.$message.error("文章不存在或者已被删除")
-          setTimeout(()=>{
-            _this.$router.back()
-          },2000)
+          this.$router.push('/notfound')
 
         }
       })

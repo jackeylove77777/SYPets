@@ -140,7 +140,14 @@
             <artifactId>spring-boot-starter-websocket</artifactId>
             <version>2.1.4.RELEASE</version>
         </dependency>
-<!--        &lt;!&ndash; 注解配置处理器 &ndash;&gt;-->
+        <!-- https://mvnrepository.com/artifact/com.corundumstudio.socketio/netty-socketio -->
+        <dependency>
+            <groupId>com.corundumstudio.socketio</groupId>
+            <artifactId>netty-socketio</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+
+        <!--        &lt;!&ndash; 注解配置处理器 &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-configuration-processor</artifactId>-->

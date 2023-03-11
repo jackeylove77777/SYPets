@@ -26,5 +26,5 @@ public interface UserService {
     Map<String,String> findPassword(FindPwdSendEmailDto dto, String ip) ;
 
 
-
+    void delete(Integer id);
 }
