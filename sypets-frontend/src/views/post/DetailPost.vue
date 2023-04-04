@@ -4,52 +4,43 @@
       <el-page-header @back="goBack" content="文章详情">
       </el-page-header>
     </PageHeader>
-    <div class="user" @click="visitUser(data.username)">
-      <el-avatar :src="data.avatar"></el-avatar>
-      <span>{{data.username}}</span>
+    <el-row class="mt-4">
+      <span class="title">{{data.title}}</span>
+    </el-row>
+    <div @click="visitUser(data.username)" class="user">
+      <el-image
+          style="width: 60px; height: 60px"
+          :src="data.avatar"></el-image>
+      <div class="user-content">
+        <span style="color: black;font-size: 20px">{{data.username}}</span>
+        <span style="color:#8a919f;">{{data.createTime}}</span>
+      </div>
     </div>
-    <div style="margin-left: 20px;margin-top: 5px" v-show="data.uid===$store.getters.getUser.id&&data.author===1">
-      <router-link :to="'/update/'+data.id"><el-link  type="warning">编辑</el-link></router-link>
+    <div class="mt-2">
+      <div>
+        <span class="edit" @click="edit">编辑</span>
+        <span class="toType" @click="toType">{{'类型:'+data.name}}</span>
+      </div>
     </div>
     <div  class="top">
-      <el-row><router-link :to="'/category/'+data.name"><el-link type="primary">{{'类型:'+data.name}}</el-link></router-link></el-row>
-      <el-row>
-        <h3>{{'标题:'+data.title}}</h3>
-      </el-row>
-      <el-row>{{'描述:'+data.description}}</el-row>
-<!--      <el-row style="color: #67C23A" v-if="data.author===0">-->
-<!--        转发-->
-<!--      </el-row>-->
-<!--      <el-row style="color: #67C23A" v-else>-->
-<!--        原创-->
-<!--      </el-row>-->
-      <el-row :gutter="20" style="margin-top: 15px">
-        <el-col :span="5" v-if="data.start" >
-          <el-button @click="unStart" type="primary"><i class="el-icon-star-on">{{data.starts}}取消点赞</i></el-button>
+      <el-row :gutter="5" style="margin-top: 15px">
+        <el-col :span="4" v-if="data.start" >
+          <el-button @click="unStart" type="success" plain><i class="el-icon-star-on">{{data.starts}}取消点赞</i></el-button>
         </el-col>
-        <el-col :span="5" v-else >
-          <el-button @click="onStart" type="primary"><i class="el-icon-star-off">{{data.starts}}点赞</i></el-button>
+        <el-col :span="4" v-else >
+          <el-button @click="onStart" type="success" plain><i class="el-icon-star-off">{{data.starts}}点赞</i></el-button>
         </el-col>
-        <el-col :span="5" v-if="data.collect" >
-          <el-button @click="unCollect" type="primary"><i class="el-icon-star-on">{{data.collects}}取消收藏</i></el-button>
+        <el-col :span="4" v-if="data.collect" >
+          <el-button @click="unCollect" type="primary" plain><i class="el-icon-star-on">{{data.collects}}取消收藏</i></el-button>
         </el-col>
-        <el-col :span="5" v-else >
-          <el-button @click="onCollect" type="primary"><i class="el-icon-star-off">{{data.collects}}收藏</i></el-button>
+        <el-col :span="4" v-else >
+          <el-button @click="onCollect" type="primary" plain><i class="el-icon-star-off">{{data.collects}}收藏</i></el-button>
         </el-col>
-<!--        <el-col v-show="data.username!=$store.getters.getUser.username" :span="5">-->
-<!--          <el-tooltip class="item" effect="dark" content="转发" placement="right">-->
-<!--            <el-button  type="primary" @click="rePost(data.id)" icon="el-icon-share" circle></el-button>-->
-<!--          </el-tooltip>-->
-<!--        </el-col>-->
-<!--        <el-col v-show="data.username!=$store.getters.getUser.username" :span="5">-->
-<!--          <el-button type="danger" @click="open">举报</el-button>-->
-<!--        </el-col>-->
       </el-row>
     </div>
-    <el-divider/>
-    <h2>文章内容:</h2>
+    <el-divider class="my-2"/>
     <div class="markdown-body" v-html="data.content"></div>
-    <el-divider/>
+    <el-divider class="my-2"/>
     <Comment />
   </div>
 </template>
@@ -59,7 +50,6 @@ import "github-markdown-css"
 import PageHeader from "../../components/PageHeader.vue";
 import Comment from "./Comment.vue";
 import {marked} from "marked";
-
 export default {
   name: "DetailPost",
   components:{Comment,PageHeader},
@@ -70,6 +60,12 @@ export default {
     }
   },
   methods:{
+    edit(){
+      this.$router.push('/update/'+this.data.id)
+    },
+    toType(){
+      this.$router.push('/category/'+this.data.name)
+    },
     goBack(){
       this.$router.back()
     },
@@ -88,14 +84,12 @@ export default {
         else{
           _this.$message.error(res.data.message)
         }
-
       })
     },
     //点赞
     onStart(){
       let _this=this
       this.$http.get("/onStart/"+this.data.id).then(res=>{
-
         if(res.data.status===200){
           _this.data.start=true
           _this.data.starts+=1
@@ -105,14 +99,12 @@ export default {
         else{
           _this.$message.error(res.data.message)
         }
-
       })
     },
     //取消收藏
     unCollect(){
       let _this=this
       this.$http.get("/unCollect/"+this.data.id).then(res=>{
-
         if(res.data.status===200){
           _this.data.collect=false
           _this.data.collects-=1
@@ -122,7 +114,6 @@ export default {
         else{
           _this.$message.error(res.data.message)
         }
-
       })
     },
     //收藏
@@ -154,7 +145,6 @@ export default {
         else{
           _this.$message.error("文章不存在或者已被删除")
           this.$router.push('/notfound')
-
         }
       })
     },
@@ -171,28 +161,49 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.title{
+  font-size: 36px;
+  font-weight: 600;
+}
+.edit{
+  color: #0086b3;
+}
+.toType{
+  margin-left: 15px;
+  color: #0086b3;
+}
+.edit:hover{
+  color: blue;
+  cursor: pointer;
+}
+.toType:hover{
+  color: blue;
+  cursor: pointer;
+}
 .user{
-  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
   margin-top: 20px;
 }
-.top{
-  margin: 0 auto;
-  text-align: center;
+.user-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
 }
 .markdown-body{
   border-radius: 30px;
   box-sizing: border-box;
   min-width: 200px;
-  max-width: 500px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 45px;
-  background: #969896;
+  padding: 5px;
+  background: white;
   //响应式
   @media (max-width: 767px) {
     .markdown-body {
       padding: 15px;
+    }
   }
-}
-
 }
 </style>

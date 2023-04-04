@@ -18,6 +18,13 @@ import User from "../views/admin/User.vue";
 import Post from "../views/admin/Post.vue";
 import EditProfile from "../views/EditProfile.vue";
 import NotFound from "../views/NotFound.vue";
+import AdList from "../views/admin/AdList.vue";
+import FosterList from "../views/foster/FosterList.vue";
+import FindPetList from "../views/findPet/FindPetList.vue";
+import StrayList from "../views/stray/StrayList.vue";
+import AdminFindPet from "../views/admin/AdminFindPet.vue";
+import AdminFoster from "../views/admin/AdminFoster.vue";
+import AdminStray from "../views/admin/AdminStray.vue";
 
 Vue.use(VueRouter)
 const originalPush = VueRouter.prototype.push;
@@ -72,13 +79,6 @@ const routes = [
                     title: '个人主页'
                 }
             },
-            // {
-            //     path: '/mention/:id',
-            //     component: ItemDetail,
-            //     meta:{
-            //         title:'个人主页'
-            //     }
-            // },
             {
                 path: '/following',
                 component: Following,
@@ -105,6 +105,27 @@ const routes = [
                 meta: {
                     title: '搜索'
                 }
+            },
+            {
+                path: '/foster',
+                component: FosterList,
+                meta: {
+                    title: '宠物寄养'
+                }
+            },
+            {
+                path: '/findpet',
+                component: FindPetList,
+                meta: {
+                    title: '寻宠'
+                }
+            },
+            {
+                path: '/stray',
+                component: StrayList,
+                meta: {
+                    title: '流浪动物'
+                }
             }
         ]
     },
@@ -123,7 +144,24 @@ const routes = [
             {
                 path: '/post',
                 component: Post,
+            },
+            {
+                path:'/adminAd',
+                component: AdList,
+            },
+            {
+                path:'/adminFindpet',
+                component: AdminFindPet,
+            },
+            {
+                path:'/adminFoster',
+                component: AdminFoster,
+            },
+            {
+                path:'/adminStray',
+                component: AdminStray,
             }
+
         ]
     },
     {

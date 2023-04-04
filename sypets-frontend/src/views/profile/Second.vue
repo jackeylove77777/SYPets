@@ -4,12 +4,14 @@
     <el-timeline>
       <div v-for="(item,index) in list" >
         <el-timeline-item  :timestamp="'收藏:'+timeList[index]" placement="top">
-          <Item  @unCollects="unCollects" :item="item" :user="user" :IsMe="IsMe"></Item>
+          <Item  @unCollects="unCollects" :item="item" :user="user" :IsMe="IsMe" :is-collect="true"></Item>
         </el-timeline-item>
       </div>
     </el-timeline>
     <!-- 没有数据则空空如也 -->
-    <div v-show="list.length===0" style="text-align: center;margin-top: 10%;margin-bottom: 10%">空空如也</div>
+    <div v-show="list===undefined||list.length===0" style="text-align: center;margin-top: 10%;margin-bottom: 10%">
+      <el-empty description="暂无内容"></el-empty>
+    </div>
   </div>
 </template>
 

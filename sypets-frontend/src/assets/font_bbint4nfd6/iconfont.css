@@ -1,0 +1,121 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1680238498726') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-sharpicons_hippo-:before {
+  content: "\e786";
+}
+
+.icon-sharpicons_Horse:before {
+  content: "\e787";
+}
+
+.icon-sharpicons_Mouse:before {
+  content: "\e788";
+}
+
+.icon-sharpicons_Rabbit:before {
+  content: "\e78a";
+}
+
+.icon-sharpicons_sea-horse:before {
+  content: "\e78b";
+}
+
+.icon-sharpicons_Butterfly:before {
+  content: "\e78c";
+}
+
+.icon-sharpicons_Pig:before {
+  content: "\e78d";
+}
+
+.icon-sharpicons_Shell:before {
+  content: "\e78e";
+}
+
+.icon-sharpicons_Snake:before {
+  content: "\e78f";
+}
+
+.icon-sharpicons_Cow:before {
+  content: "\e790";
+}
+
+.icon-sharpicons_Spider:before {
+  content: "\e791";
+}
+
+.icon-sharpicons_Eagle:before {
+  content: "\e792";
+}
+
+.icon-sharpicons_Donkey:before {
+  content: "\e793";
+}
+
+.icon-sharpicons_elephant-:before {
+  content: "\e794";
+}
+
+.icon-sharpicons_Dog:before {
+  content: "\e795";
+}
+
+.icon-sharpicons_Dolphin:before {
+  content: "\e796";
+}
+
+.icon-sharpicons_Cat:before {
+  content: "\e797";
+}
+
+.icon-sharpicons_Bull:before {
+  content: "\e798";
+}
+
+.icon-sharpicons_Cheetah:before {
+  content: "\e799";
+}
+
+.icon-sharpicons_crab:before {
+  content: "\e79a";
+}
+
+.icon-sharpicons_Fox:before {
+  content: "\e79b";
+}
+
+.icon-a-1:before {
+  content: "\e601";
+}
+
+.icon-a-11:before {
+  content: "\e602";
+}
+
+.icon-header:before {
+  content: "\e604";
+}
+
+.icon-header1:before {
+  content: "\e605";
+}
+
+.icon-home:before {
+  content: "\e60b";
+}
+
+.icon-warn:before {
+  content: "\e60c";
+}
+

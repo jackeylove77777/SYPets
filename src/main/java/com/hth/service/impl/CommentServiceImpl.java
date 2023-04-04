@@ -45,6 +45,7 @@ public class CommentServiceImpl implements CommentService {
         User user = userMapper.selectById(uid);
         comment.setUname(user.getUsername());
         comment.setAvatar(user.getAvatar());
+        comment.setCreateTime(new Date());
         //添加评论
         commentMapper.insert(comment);
         PostDetail postDetail = postMapper.findPostById(pid);
@@ -90,6 +91,7 @@ public class CommentServiceImpl implements CommentService {
         answer.setAvatar(user.getAvatar());
         answer.setContent(content);
         answer.setCommentId(commentId);
+        answer.setCreateTime(new Date());
         //添加回复
         answerMapper.insert(answer);
         //回复消息

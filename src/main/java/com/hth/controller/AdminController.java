@@ -1,10 +1,16 @@
 package com.hth.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.hth.entity.Foster;
 import com.hth.entity.Msg;
 import com.hth.entity.PostDetail;
 import com.hth.entity.User;
 import com.hth.log.TestSuccess;
+import com.hth.mapper.PostMapper;
+import com.hth.mapper.UserMapper;
 import com.hth.service.AdminService;
 import com.hth.service.PostService;
 import com.hth.service.UserService;
@@ -28,14 +34,20 @@ public class AdminController {
     PostService postService;
     @Autowired
     UserService userService;
+    @Autowired
+    UserMapper userMapper;
     //找出所有的用户
     @RequiresRoles("admin")
     @GetMapping("/getUser")
     @TestSuccess
     public Msg getUser(@RequestParam(name = "pagenum",defaultValue = "1")Integer page,
-                       @RequestParam(name ="pagesize",defaultValue = "5")Integer size){
-        PageInfo all = adminService.findAll(page, size);
-        return Msg.success().add("userlist",all);
+                       @RequestParam(name ="pagesize",defaultValue = "5")Integer size,
+                       @RequestParam(name="query",defaultValue = "")String query){
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.like(User::getUsername,query);
+        Page<User> strayPage = new Page<>(page, size);
+        Page<User> page1 = userMapper.selectPage(strayPage,queryWrapper);
+        return Msg.success().add("list",page1.getRecords()).add("total",page1.getTotal());
     }
     //通过Id删除用户
     @RequiresRoles("admin")
@@ -44,19 +56,6 @@ public class AdminController {
     public Msg delUser(@PathVariable Integer id){
         userService.delete(id);
         return Msg.success("成功删除");
-    }
-    //通过id搜索用户
-    @RequiresRoles("admin")
-    @GetMapping("/getOne/{id}")
-    @TestSuccess
-    @ApiOperation("搜索一个用户")
-    public Msg findOne(@PathVariable Integer id){
-        User user = adminService.findById(id);
-        List<User> userList = new ArrayList<>();
-        if(user==null){
-            userList.add(user);
-        }
-        return Msg.success().add("userlist",userList);
     }
 
     //修改用户状态
@@ -71,17 +70,13 @@ public class AdminController {
     @RequiresRoles("admin")
     @GetMapping("/getPost")
     public Msg getPost(@RequestParam(name = "pagenum",defaultValue = "1")Integer page,
-                       @RequestParam(name ="pagesize",defaultValue = "5")Integer size){
-        return Msg.success("").add("postlist",postService.findAll(page, size));
-    }
-    //通过文章Id进行查找
-    @RequiresRoles("admin")
-    @GetMapping("/findOne/{id}")
-    public Msg getOne(@PathVariable Integer id){
-        PostDetail post = postService.findPostById(id);
-        List<PostDetail> postList = new ArrayList<>();
-        if(post!=null)postList.add(post);
-        return Msg.success().add("postlist",postList);
+                       @RequestParam(name ="pagesize",defaultValue = "5")Integer size,
+                       @RequestParam(name="query",defaultValue = "")String query){
+        List<PostDetail> list = postService.serachPost(query);
+        PageHelper.startPage(page,size);
+        PageInfo pageInfo=new PageInfo(list);
+        System.out.println(list);
+        return Msg.success().add("list",list).add("total",pageInfo.getTotal());
     }
     //修改文章的状态
     @RequiresRoles("admin")

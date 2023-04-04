@@ -12,18 +12,20 @@
 <!--        文章-->
         <el-tab-pane label="文章" name="1">
           <div v-for="item in postList">
-            <el-timeline>
-              <ListItem :item="item"></ListItem>
-            </el-timeline>
+            <ListItem :article="item"></ListItem>
           </div>
-          <div v-show="postList.length===0" style="text-align: center;margin-top: 10%;margin-bottom: 10%;">无搜索结果</div>
+          <div v-show="postList.length===0" style="text-align: center;margin-top: 10%;margin-bottom: 10%;">
+            <el-empty description="暂无内容"></el-empty>
+          </div>
         </el-tab-pane>
 <!--        用户-->
         <el-tab-pane label="用户" name="2">
           <div v-for="item in userList">
             <UserItem :item="item"></UserItem>
           </div>
-          <div v-show="userList.length===0" style="text-align: center;margin-top: 10%;margin-bottom: 10%;">无搜索结果</div>
+          <div v-show="userList.length===0" style="text-align: center;margin-top: 10%;margin-bottom: 10%;">
+            <el-empty description="暂无内容"></el-empty>
+          </div>
         </el-tab-pane>
       </el-tabs>
     </div>

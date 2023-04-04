@@ -1,0 +1,198 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "10568909",
+      "name": "sharpicons_hippo-2",
+      "font_class": "sharpicons_hippo-",
+      "unicode": "e786",
+      "unicode_decimal": 59270
+    },
+    {
+      "icon_id": "10568911",
+      "name": "sharpicons_Horse",
+      "font_class": "sharpicons_Horse",
+      "unicode": "e787",
+      "unicode_decimal": 59271
+    },
+    {
+      "icon_id": "10568912",
+      "name": "sharpicons_Mouse",
+      "font_class": "sharpicons_Mouse",
+      "unicode": "e788",
+      "unicode_decimal": 59272
+    },
+    {
+      "icon_id": "10568923",
+      "name": "sharpicons_Rabbit",
+      "font_class": "sharpicons_Rabbit",
+      "unicode": "e78a",
+      "unicode_decimal": 59274
+    },
+    {
+      "icon_id": "10568925",
+      "name": "sharpicons_sea-horse",
+      "font_class": "sharpicons_sea-horse",
+      "unicode": "e78b",
+      "unicode_decimal": 59275
+    },
+    {
+      "icon_id": "10568929",
+      "name": "sharpicons_Butterfly",
+      "font_class": "sharpicons_Butterfly",
+      "unicode": "e78c",
+      "unicode_decimal": 59276
+    },
+    {
+      "icon_id": "10568930",
+      "name": "sharpicons_Pig",
+      "font_class": "sharpicons_Pig",
+      "unicode": "e78d",
+      "unicode_decimal": 59277
+    },
+    {
+      "icon_id": "10568933",
+      "name": "sharpicons_Shell",
+      "font_class": "sharpicons_Shell",
+      "unicode": "e78e",
+      "unicode_decimal": 59278
+    },
+    {
+      "icon_id": "10568936",
+      "name": "sharpicons_Snake",
+      "font_class": "sharpicons_Snake",
+      "unicode": "e78f",
+      "unicode_decimal": 59279
+    },
+    {
+      "icon_id": "10568940",
+      "name": "sharpicons_Cow",
+      "font_class": "sharpicons_Cow",
+      "unicode": "e790",
+      "unicode_decimal": 59280
+    },
+    {
+      "icon_id": "10568941",
+      "name": "sharpicons_Spider",
+      "font_class": "sharpicons_Spider",
+      "unicode": "e791",
+      "unicode_decimal": 59281
+    },
+    {
+      "icon_id": "10568944",
+      "name": "sharpicons_Eagle",
+      "font_class": "sharpicons_Eagle",
+      "unicode": "e792",
+      "unicode_decimal": 59282
+    },
+    {
+      "icon_id": "10568949",
+      "name": "sharpicons_Donkey",
+      "font_class": "sharpicons_Donkey",
+      "unicode": "e793",
+      "unicode_decimal": 59283
+    },
+    {
+      "icon_id": "10568951",
+      "name": "sharpicons_elephant-2",
+      "font_class": "sharpicons_elephant-",
+      "unicode": "e794",
+      "unicode_decimal": 59284
+    },
+    {
+      "icon_id": "10568952",
+      "name": "sharpicons_Dog",
+      "font_class": "sharpicons_Dog",
+      "unicode": "e795",
+      "unicode_decimal": 59285
+    },
+    {
+      "icon_id": "10568953",
+      "name": "sharpicons_Dolphin ",
+      "font_class": "sharpicons_Dolphin",
+      "unicode": "e796",
+      "unicode_decimal": 59286
+    },
+    {
+      "icon_id": "10568958",
+      "name": "sharpicons_Cat",
+      "font_class": "sharpicons_Cat",
+      "unicode": "e797",
+      "unicode_decimal": 59287
+    },
+    {
+      "icon_id": "10568959",
+      "name": "sharpicons_Bull",
+      "font_class": "sharpicons_Bull",
+      "unicode": "e798",
+      "unicode_decimal": 59288
+    },
+    {
+      "icon_id": "10568960",
+      "name": "sharpicons_Cheetah",
+      "font_class": "sharpicons_Cheetah",
+      "unicode": "e799",
+      "unicode_decimal": 59289
+    },
+    {
+      "icon_id": "10568961",
+      "name": "sharpicons_crab",
+      "font_class": "sharpicons_crab",
+      "unicode": "e79a",
+      "unicode_decimal": 59290
+    },
+    {
+      "icon_id": "10568962",
+      "name": "sharpicons_Fox",
+      "font_class": "sharpicons_Fox",
+      "unicode": "e79b",
+      "unicode_decimal": 59291
+    },
+    {
+      "icon_id": "34762481",
+      "name": "collect",
+      "font_class": "a-1",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "34762497",
+      "name": "collect",
+      "font_class": "a-11",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "34762999",
+      "name": "header",
+      "font_class": "header",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "34763017",
+      "name": "header",
+      "font_class": "header1",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "34768574",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "34779882",
+      "name": "warn",
+      "font_class": "warn",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    }
+  ]
+}

@@ -2,28 +2,38 @@
   <div>
     <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
       <el-tab-pane label="动态" name="first" lazy>
-        <div v-show="activeName==='first'">
+        <div if="activeName==='first'">
           <First  :IsMe="IsMe" :user="user"/>
         </div>
       </el-tab-pane>
       <el-tab-pane label="收藏" name="second" lazy>
-        <div v-show="activeName==='second'" >
+        <div v-if="activeName==='second'" >
           <Second  :IsMe="IsMe" :user="user"/>
         </div>
       </el-tab-pane>
       <el-tab-pane label="粉丝" name="third" lazy>
-        <div v-show="activeName==='third'">
+        <div v-if="activeName==='third'">
           <Third :IsMe="IsMe"  :user="user"/>
         </div>
       </el-tab-pane>
       <el-tab-pane label="关注" name="fourth" lazy>
-        <div v-show="activeName==='fourth'">
+        <div v-if="activeName==='fourth'">
           <Fourth :IsMe="IsMe"  :user="user"/>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="被提到的" name="fifth" lazy>
-        <div v-show="activeName==='fifth'">
-          <Fifth :IsMe="IsMe" :user="user"/>
+      <el-tab-pane label="寻宠" name="findpet" lazy>
+        <div v-if="activeName==='findpet'">
+          <UserFindPet :IsMe="IsMe"  :user="user"/>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="寄养" name="foster" lazy>
+        <div v-if="activeName==='foster'">
+          <UserFoster :IsMe="IsMe" :user="user"/>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="流浪" name="stray" lazy>
+        <div v-if="activeName==='stray'">
+          <UserStray :IsMe="IsMe"  :user="user"/>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -35,13 +45,15 @@ import First from "./First.vue";
 import Second from "./Second.vue";
 import Third from "./Third.vue";
 import Fourth from "./Fourth.vue";
-import Fifth from "./Fifth.vue";
+import UserFindPet from "./UserFindPet.vue";
+import UserFoster from "./UserFoster.vue";
+import UserStray from "./UserStray.vue";
 export default {
   name: "ProfileContent",
-  components:{Fifth, First,Second,Third,Fourth},
+  components:{First,Second,Third,Fourth,UserFindPet,UserFoster,UserStray},
   data(){
     return{
-      activeName:''
+      activeName:'first'
     }
   },
   props:{

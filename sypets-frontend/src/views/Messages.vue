@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="header" :class="isFixed ?'isFixed':''">
+    <div class="header" >
       <el-badge v-for="item in headerData"  :value="item.value" class="item">
         <el-button @click="click(item.id)" size="small">{{item.name}}</el-button>
       </el-badge>
@@ -33,15 +33,10 @@ export default {
       console.log(id)
       this.$router.push('/messages/'+id)
     },
-    handleScroll(){
-      this.$nextTick(()=>{
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        this.isFixed = scrollTop > 30;
-      })
-    }
+
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll);
+
     this.$http.get("/message/findMessageTypeNum").then(res=>{
           this.headerData=res.data.data.data
         }
@@ -58,9 +53,6 @@ export default {
   },
   beforeDestroy(){
     this.$bus.$off("change")
-  },
-  destroyed(){
-    window.removeEventListener('scroll', this.handleScroll);
   },
 }
 </script>

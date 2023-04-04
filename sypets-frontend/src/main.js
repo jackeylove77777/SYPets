@@ -11,7 +11,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 //图标
 import './assets/css/global.css'
-import './assets/fonts/iconfont.css'
+import './assets/font_bbint4nfd6/iconfont.css'
 //富文本编辑
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'

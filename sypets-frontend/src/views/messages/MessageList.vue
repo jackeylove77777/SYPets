@@ -3,14 +3,15 @@
     <el-timeline-item v-for="item in list" :timestamp="item.time" placement="top">
       <el-card>
         <el-badge v-show="item.status===1" value="new" />
-        <p v-html="item.message"></p>
-        <div class="btns">
-          <el-button v-if="item.status===1" @click="read(item.id)" type="primary" plain>已读</el-button>
-          <el-button type="danger"  @click="deleted(item.id)" icon="el-icon-delete"></el-button>
+        <div class="message-body">
+          <p v-html="item.message"></p>
+          <div class="btns">
+            <el-button v-if="item.status===1" @click="read(item.id)" type="primary" plain>已读</el-button>
+            <el-button type="danger"  @click="deleted(item.id)" icon="el-icon-delete"></el-button>
+          </div>
         </div>
       </el-card>
     </el-timeline-item>
-
   </el-timeline>
 </template>
 
@@ -80,8 +81,14 @@ export default {
 
 <style scoped>
 .btns{
+
   display: flex;
   justify-content: flex-end;
+  margin-left: auto;
 }
-
+.message-body{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 </style>

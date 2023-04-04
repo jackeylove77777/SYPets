@@ -2,27 +2,30 @@
   <div class="profile">
 <!--    自己主页-->
     <div v-if="IsMe">
-      <el-row style="margin-bottom: 0" :gutter="5">
-        <el-col :span="6"><div class="block" ><el-avatar shape="square" :size="200"  :src="user.avatar"></el-avatar></div></el-col>
-        <el-col class="user"  :span="6"><span>{{user.username}}</span></el-col>
-      </el-row>
+      <div class="user-avatar" style="margin-bottom: 0">
+        <div><div class="block" ><el-avatar shape="square" :size="120"  :src="user.avatar"></el-avatar></div></div>
+        <div class="user-info">
+          <span class="mx-lg-4 mx-md-2 username">{{user.username}}</span>
+          <span class="mx-lg-4 mx-md-2 " style="color: #8A919F;">{{'邮箱: '+user.email}}</span>
+          <span class="mx-lg-4 mx-md-2 " style="color: #8A919F;">简介:{{user.privateInfo}}</span>
+        </div>
+      </div>
       <el-row>
-        <el-col class="info" :span="5">简介:{{user.privateInfo}}</el-col>
-        <el-col class="update" :span="4"><el-link type="success" @click="editProfile"><i class="el-icon-edit">编辑个人资料</i></el-link></el-col>
-      </el-row>
-      <el-row v-show="user.username==='admin'">
-        <router-link to="/admin">进入后台</router-link>
+        <el-col class="update" :span="4"><span type="success" @click="editProfile"><i class="el-icon-edit">编辑个人资料</i></span></el-col>
+        <el-col :span="4"  v-show="user.username==='admin'"><span class="admin-text" @click="toAdmin">进入后台</span></el-col>
       </el-row>
     </div>
 <!--    他人主页-->
     <div v-else>
-      <el-row style="margin-bottom: 0"  :gutter="5">
-        <el-col :span="6"><div class="block" ><el-avatar shape="square" :size="200" :src="user.avatar"></el-avatar></div></el-col>
-        <el-col class="user"  :span="7"><span>{{user.username}}</span></el-col>
-      </el-row>
-<!--      <el-button style="margin-left: 30%" @click="open" type="danger">举报</el-button>-->
+      <div class="user-avatar" style="margin-bottom: 0">
+        <div><div class="block" ><el-avatar shape="square" :size="120"  :src="user.avatar"></el-avatar></div></div>
+        <div class="user-info">
+          <span class="mx-lg-4 mx-md-2 username">{{user.username}}</span>
+          <span class="mx-lg-4 mx-md-2 " style="color: #8A919F;">{{'邮箱: '+user.email}}</span>
+          <span class="mx-lg-4 mx-md-2 " style="color: #8A919F;">简介:{{user.privateInfo}}</span>
+        </div>
+      </div>
       <el-row>
-        <el-col class="info" :span="5">简介:{{user.private_info}}</el-col>
         <el-col class="update" :span="4">
           <el-button v-if="isfollow" @click="unFollow" type="primary">
             <i class="el-icon-star-off" >取消关注</i>
@@ -30,8 +33,12 @@
           <el-button v-else type="primary" @click="follow" >
             <i class="el-icon-star-off" >关注</i>
           </el-button>
-        </el-col >
-
+        </el-col>
+        <el-col :span="3">
+          <el-button type="primary" @click="privateChat" >
+            <i class="el-icon-chat-dot-round" >私信</i>
+          </el-button>
+        </el-col>
       </el-row>
     </div>
   </div>
@@ -57,8 +64,18 @@ export default {
     },
   },
   methods:{
+    privateChat(){
+      let args = {
+        toId:this.user.id,
+        toUsername:this.user.username
+      }
+      this.$bus.$emit("sendMessage",args)
+    },
     editProfile(){
       this.$router.push("/editProfile")
+    },
+    toAdmin(){
+      this.$router.push("/admin")
     },
     //取消关注
     unFollow(){
@@ -95,18 +112,35 @@ export default {
 </script>
 
 <style scoped>
-.user{
-  margin-top: 120px;
-  margin-left: 20px;
-  color: #0086b3;
-  font-size: 25px;
+.user-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-.info{
-  margin-top: 130px;
-
+.admin-text{
+  color: #0086b3;
+  font-size: 16px;
+}
+.admin-text:hover{
+  color: blue;
+  cursor: pointer;
+}
+.username{
+  font-size: 36px;
+}
+.user-avatar{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.update:hover{
+  color: blue;
+  cursor: pointer;
 }
 .update{
-  margin-left: 350px;
-  margin-top: 150px;
+  margin-left: 10px;
+  font-size: 16px;
+  color: #0086b3;
 }
 </style>

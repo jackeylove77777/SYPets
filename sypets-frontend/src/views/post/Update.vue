@@ -3,7 +3,7 @@
 
     <el-page-header @back="goBack" content="修改文章"/>
 
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"  class="demo-ruleForm">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="60px"  class="demo-ruleForm">
       <el-form-item label="标题" prop="title">
         <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
@@ -136,6 +136,5 @@ export default {
 }
 .el-form{
   margin-top: 20px;
-  margin-right: 50px;
 }
 </style>

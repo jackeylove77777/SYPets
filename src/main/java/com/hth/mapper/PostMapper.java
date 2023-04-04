@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hth.entity.Post;
 import com.hth.entity.PostDetail;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,4 +30,5 @@ public interface PostMapper extends BaseMapper<Post> {
     List<PostDetail> findFollowingPost(List<Integer> list);
 
     List<PostDetail> serachPost(String content);
+
 }

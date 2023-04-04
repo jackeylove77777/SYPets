@@ -1,12 +1,13 @@
 <template>
   <div>
     <h3>{{sex+'的动态'}}</h3>
-    <el-timeline>
-      <div v-for="item in list" >
-        <Item  @delete="del" :item="item" :user="user" :IsMe="IsMe"></Item>
-      </div>
-    </el-timeline>
-    <div v-show="list.length===0" style="text-align: center;margin-top: 10%;margin-bottom: 10%">空空如也</div>
+    <div v-for="item in list" >
+      <Item  @delete="del" :item="item" :user="user" :IsMe="IsMe"></Item>
+    </div>
+
+    <div v-show="list===undefined||list.length===0" style="text-align: center;margin-top: 10%;margin-bottom: 10%">
+      <el-empty description="暂无内容"></el-empty>
+    </div>
   </div>
 </template>
 

@@ -5,13 +5,13 @@
       </el-page-header>
     </PageHeader>
 
-    <el-timeline>
-      <ListItem v-for="item in list" :item="item"></ListItem>
-    </el-timeline>
+    <div class="mx-lg-2 mx-md-1">
+      <ListItem v-for="item in list" :article="item"></ListItem>
+    </div>
     <div v-show="total===0" style="text-align: center">
       暂无内容
     </div>
-
+    <div style="height: 20px"></div>
     <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -20,7 +20,7 @@
         :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
-        class="el-pagination"
+        class="el-pagination mt-4"
     >
     </el-pagination>
 

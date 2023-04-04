@@ -1,18 +1,27 @@
 <template>
-  <div>
-    <el-button style="margin-bottom: 10px" type="success" @click="open">我要评论</el-button>
+  <div class="mt-4">
+    <div class="comment-header">
+      <span class="comment-text">评论区</span>
+      <el-button style="margin-bottom: 10px" type="success" @click="open">我要评论</el-button>
+    </div>
 <!--    评论列表-->
-    <el-timeline v-for="item in list">
-      <el-timeline-item :timestamp="item.time" placement="top">
-        <el-card>
-          <CommentItem :item="item"/>
-        </el-card>
-      </el-timeline-item>
-    </el-timeline>
+    <div class="mt-4"></div>
+    <CommentItem v-for="item in list" :item="item"/>
     <div v-show="list.length===0" style="text-align: center;margin-top: 10%;margin-bottom: 10%">暂无评论</div>
   </div>
 </template>
-
+<style scoped>
+.comment-header{
+  display: flex;
+  justify-content: space-between;
+}
+.comment-text{
+  line-height: 30px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #252933;
+}
+</style>
 <script>
 import CommentItem from "./CommentItem.vue";
 export default {

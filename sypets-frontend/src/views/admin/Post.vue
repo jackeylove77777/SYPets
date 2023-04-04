@@ -3,8 +3,8 @@
     <el-card>
       <el-row :gutter="20">
         <el-col :span="6">
-          <el-input placeholder="输入文章ID" v-model="query" clearable @clear="getPostList">
-            <el-button slot="append" icon="el-icon-search" @click="findOne"></el-button>
+          <el-input placeholder="输入文章ID" v-model="queryInfo.query" clearable @clear="getPostList">
+            <el-button slot="append" icon="el-icon-search" @click="getPostList"></el-button>
           </el-input>
         </el-col>
       </el-row>
@@ -14,9 +14,10 @@
       <thead>
       <tr>
         <th class="text-center">id</th>
+        <th class="text-center">作者</th>
+        <th class="text-center">分类</th>
         <th class="text-center">标题</th>
         <th class="text-center">描述</th>
-        <th class="text-center">作者</th>
         <th class="text-center">内容</th>
         <th class="text-center">状态</th>
         <th class="text-center">操作</th>
@@ -24,24 +25,31 @@
       </thead>
       <tbody>
       <tr v-for="post in postlist" :key="post.id">
-        <td><span @click="linkPost(post.id)" style="cursor: pointer" class="text-primary text-center">{{post.id}}</span></td>
-        <td class="text-center lh-lg">{{post.title}}</td>
-        <td class="text-center lh-lg">{{post.description}}</td>
-        <td class="text-center lh-lg"><span @click="link(post.uid)" style="cursor: pointer" class="text-primary text-center">{{post.username}}</span></td>
-        <td class="text-center text-primary lh-lg"><span @click="openContent(post.content)" style="cursor: pointer">查看文章内容</span></td>
+        <td class="tableUint text-primary"><span @click="linkPost(post.id)" style="cursor: pointer" class="text-primary text-center">{{post.id}}</span></td>
+        <td class="tableUint text-primary"><span @click="link(post.username)" style="cursor: pointer" class="text-primary text-center">{{post.username}}</span></td>
+        <td class="tableUint">{{post.name}}</td>
+        <td class="tableUint">{{post.title}}</td>
+        <td class="tableUint">{{post.description}}</td>
+        <td class="tableUint text-primary"><span @click="openContent(post.content)" style="cursor: pointer">查看文章内容</span></td>
         <td :class="post.status===1?'text-success text-center lh-lg fs-5':'text-danger text-center lh-lg fs-5'">{{post.status}}</td>
-        <td class="text-center">
-          <el-button type="warning" class="my-1" @click="postStateChanged(post)">修改状态</el-button>
-          <el-button type="danger" @click="deleteById(post.id)">删除文章</el-button>
+        <td class="tableUint">
+          <div class="op-col">
+            <span @click="postStateChanged(post)" class="op-text">修改状态</span>
+            <span @click="deleteById(post.id)" class="delete-text">删除</span>
+          </div>
         </td>
       </tr>
       </tbody>
     </table>
+
+    <div v-if="postlist===undefined||postlist.length===0">
+      <el-empty description="暂无内容"></el-empty>
+    </div>
     <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
-        :page-sizes="[ 5, 10, 15]"
+        :page-sizes="[ 10, 15,30]"
         :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
@@ -50,10 +58,11 @@
     <el-dialog
         title="文章内容"
         :visible.sync="showPostContent"
-        width="30%"
+        width="50%"
+        class="overflow-scroll"
         :before-close="closeDialog">
-      <div v-html="htmlContent" class="bg-gradient border p-2 bg-light" style="min-height: 400px"></div>
-      <div class="d-flex flex-row-reverse px-1 mt-4"><el-button @click="closeDialog" type="primary">确定</el-button></div>
+        <div v-html="htmlContent" class="bg-gradient overflow-scroll border p-2 bg-light" style="min-height: 400px;width: 100%"></div>
+        <div class="d-flex flex-row-reverse px-1 mt-4"><el-button @click="closeDialog" type="primary">确定</el-button></div>
     </el-dialog>
   </div>
 </template>
@@ -69,13 +78,13 @@ export default {
         // 当前页数
         pagenum: 1,
         // 每页显示多少数据
-        pagesize: 5
+        pagesize: 10,
+        query: '',
       },
       postlist:[{
         status:0
       }],
       total: 0,
-      query: '',
       types:['','学习','生活','美食','旅游','想法','其他'],
       showPostContent:false,
       htmlContent:null,
@@ -85,8 +94,8 @@ export default {
     getPostList(){
       this.$http.get("/admin/getPost",{params:this.queryInfo}).then(res=>{
         console.log(res)
-        this.postlist=res.data.data.postlist.list
-        this.total=res.data.data.postlist.total
+        this.postlist=res.data.data.list
+        this.total=res.data.data.total
       })
     },
     openContent(content){
@@ -123,26 +132,6 @@ export default {
       this.queryInfo.pagenum = newSize
       this.getPostList()
     },
-    findOne(){
-      if(this.query===''||this.query.length===0){
-        this.$message.error("请输入搜索内容")
-      }
-      else{
-        let num=parseInt(this.query,10)
-        if(num>0){
-          this.$http.get("/admin/findOne/"+num).then(res=>{
-            this.postlist=res.data.data.postlist
-            this.total=this.postlist.length
-            this.queryInfo.pagenum=1
-            this.queryInfo.pagesize=5
-          })
-        }
-        else {
-          this.$message.error("搜索内容无效")
-        }
-
-      }
-    },
     deleteById(id){
       this.$http.delete('/admin/post/'+id).then(res=>{
         this.$message.info(res.data.message)
@@ -162,5 +151,28 @@ export default {
 }
 </script>
 <style scoped>
-
+.op-text{
+  color: #66b9fd;
+  cursor: pointer;
+}
+.op-text:hover{
+  color: blue;
+  text-decoration: underline;
+}
+.delete-text{
+  padding-left: 10px;
+  color: orangered;
+  cursor: pointer;
+}
+.delete-text:hover{
+  color: red;
+  text-decoration: underline;
+}
+.tableUint{
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  white-space: nowrap;
+}
 </style>

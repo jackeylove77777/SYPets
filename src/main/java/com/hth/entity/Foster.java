@@ -3,6 +3,8 @@ package com.hth.entity;
 import java.util.Date;
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,7 +43,8 @@ public class Foster  {
     private Integer solve;
     
     private Integer delFlag;
-
+    @TableField(exist = false)
+    private String expectTime;
 
 
 }

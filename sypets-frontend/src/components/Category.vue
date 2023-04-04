@@ -1,5 +1,5 @@
 <template>
-  <div class="category-box">
+  <div class="category-box rounded">
     <el-menu>
       <el-menu-item index="2" v-for="type in typeList" :key="type.id" @click="clickItem(type.name)">
         <span slot="title">{{type.name +':'+type.type_num}}</span>

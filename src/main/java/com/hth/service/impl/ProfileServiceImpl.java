@@ -101,7 +101,7 @@ public class ProfileServiceImpl implements ProfileService {
         if(members.size()==0)return new ArrayList<>();
         List<Integer> list=new ArrayList<>(members);
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.select(User::getUsername,User::getId,User::getAvatar);
+        queryWrapper.select(User::getUsername,User::getId,User::getAvatar,User::getPrivateInfo);
         queryWrapper.in(User::getId,list);
         List<User> users = userMapper.selectList(queryWrapper);
         return users;
@@ -119,7 +119,7 @@ public class ProfileServiceImpl implements ProfileService {
         if(members.size()==0)return new ArrayList<>();
         List<Integer> list=new ArrayList<>(members);
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.select(User::getUsername,User::getId,User::getAvatar);
+        queryWrapper.select(User::getUsername,User::getId,User::getAvatar,User::getPrivateInfo);
         queryWrapper.in(User::getId,list);
         List<User> users = userMapper.selectList(queryWrapper);
         return users;

@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <div style="background-color: #F2F3F5;height: 100vh">
     <h2 style="text-align: center">个人资料</h2>
-    <div class="edit-profile">
+    <div class="edit-profile" style="background-color: white">
       <el-upload
           class="avatar-uploader"
           action=""
-
           :show-file-list="false"
           :http-request="upAvatar"
           :on-success="handleAvatarSuccess"
@@ -14,7 +13,7 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
 
-      <p>用户名:
+      <p class="mt-2">用户名:
         <span >{{user.username}}</span>
         <el-button style="margin-left: 5%" @click="editUserName(user.username)" type="primary" icon="el-icon-edit" size="mini" circle></el-button>
         <router-link style="margin-left: 50%" :to="'/profile/'+user.username"><el-link type="success">返回个人主页</el-link></router-link></p>
@@ -275,15 +274,15 @@ export default {
 
 <style scoped>
 .edit-profile{
-  position: absolute;
-
-  width: 80%;
+  padding-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 900px;
   height: 100%;
-  margin-left: 10%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .1)
 }
 p{
-  margin-left: 200px;
+  margin-left: 150px;
 }
 p>span{
   margin-left: 10%
@@ -292,12 +291,13 @@ p>span{
   display: flex;
   justify-content: flex-end;
 }
-.avatar-uploader .el-upload {
+.avatar-uploader{
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  margin-left: 150px;
 }
 .avatar-uploader .el-upload:hover {
   border-color: #409EFF;

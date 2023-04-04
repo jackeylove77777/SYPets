@@ -10,12 +10,13 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import com.hth.config.WebSocketConfig;
+import com.hth.util.JWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 
-@ServerEndpoint(value = "/socket/{id}", configurator = WebSocketConfig.class)
+@ServerEndpoint(value = "/socket", configurator = WebSocketConfig.class)
 @Component
 public class ChatServer {
 
@@ -23,31 +24,22 @@ public class ChatServer {
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
 
-    private static ConcurrentHashMap<String, ChatServer> webSocketSet = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<Integer, ChatServer> hashmap = new ConcurrentHashMap<>();
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
-
-    //指定的sid，具有唯一性，暫定為用戶id
-    private String sid = "";
-
-    /**
-     * 连接建立成功调用的方法
-     */
+    private Integer userId;
+    private Integer getUserId(Session session){
+        //请求为   ws://domain?token=jwt,token存了userid
+        String token= session.getQueryString().split("=")[1];
+        Integer userId = JWTUtil.getUserId(token);
+        return userId;
+    }
     @OnOpen
-    public void onOpen(@PathParam("id") String id, Session session, EndpointConfig config) {
-        //获取WebsocketConfig.java中配置的“sessionId”信息值
-        String httpSessionId = (String) config.getUserProperties().get("sessionId");
-        this.session = session;
-        this.sid=id;
-
-        webSocketSet.put(sid,this);     //加入set中
-        addOnlineCount();           //在线数加1
-        System.out.println("用戶"+sid+"加入！当前在线人数为" + getOnlineCount());
-//        try {
-//            sendMessage("Hello world");
-//        } catch (IOException e) {
-//            System.out.println("IO异常");
-//        }
+    public void onOpen(Session session) {
+        this.session=session;
+        this.userId=getUserId(session);
+        hashmap.put(this.userId,this);
+        log.info("【websocket消息】新建连接, 总数:{}",hashmap.size());
     }
 
     /**
@@ -55,7 +47,7 @@ public class ChatServer {
      */
     @OnClose
     public void onClose() {
-        webSocketSet.remove(sid);  //从set中删除
+        hashmap.remove(userId);  //从set中删除
         subOnlineCount();           //在线数减1
         log.info("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
@@ -67,8 +59,9 @@ public class ChatServer {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        log.info("收到来自窗口" + sid + "的信息:" + message);
+        log.info("收到来自窗口" + userId + "的信息:" + message);
         //群发消息
+        //do nothing
     }
 
     /**
@@ -89,29 +82,20 @@ public class ChatServer {
     }
 
 
-    /**
-     *
-     */
-    public  boolean sendtoUser(String message,Integer sendUserId) throws IOException {
-            if (webSocketSet.get(sendUserId) != null) {
-                if(!sid.equals(sendUserId)){
-                    log.info("未找到匹配用戶");
-                    return false;
-                }{
-                    webSocketSet.get(sendUserId).sendMessage(message);
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    log.info("消息發送成功");
-                    return true;
-                }
-            } else {
-                //如果用户不在线则返回不在线信息给自己
-                log.info("未找到匹配用戶");
-                return false;
+    public  boolean sendtoUser(String message,Integer sendUserId) throws IOException{
+        if (hashmap.get(sendUserId) == null) {
+            log.info("未找到匹配用戶");
+            return false;
+        }else{
+            hashmap.get(sendUserId).sendMessage(message);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            log.info("消息发送成功");
+            return true;
+        }
     }
 
 

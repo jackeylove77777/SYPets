@@ -10,12 +10,14 @@
       <el-menu-item  :index="'/'" ><i class="el-icon-s-home"></i>首页</el-menu-item>
       <el-menu-item :index="'/following'" ><i class="el-icon-user-solid"></i>关注</el-menu-item>
       <el-menu-item :index="'/search'" ><i class="el-icon-search"></i>发现</el-menu-item>
+      <el-menu-item :index="'/findpet'" ><span class="iconfont">&#xe794;</span>&nbsp;寻宠</el-menu-item>
+      <el-menu-item :index="'/foster'" ><span class="iconfont">&#xe78d;</span>&nbsp;寄养</el-menu-item>
+      <el-menu-item :index="'/stray'" ><span class="iconfont">&#xe796;</span>&nbsp;流浪</el-menu-item>
       <el-menu-item  :index="'/messages'" ><i class="el-icon-message-solid"></i>消息 <el-badge v-show="message" value="new" /></el-menu-item>
-      <el-menu-item  :index="url" ><i class="el-icon-user"></i>个人主页</el-menu-item>
     </el-menu>
 
     <div class="create">
-      <el-button type="primary" @click="edit" round style="margin-left: 50px"><i class="el-icon-edit">此刻的想法</i></el-button>
+      <el-button type="primary" @click="edit" round style="margin-left: 50px"><i class="el-icon-edit">发表新想法</i></el-button>
     </div>
 <!--    头像-->
     <div class="user">
@@ -30,12 +32,19 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <div class="mx-4">
+      <Chat/>
+    </div>
   </div>
 </template>
 
 <script>
+import Chat from "./Chat.vue";
 export default {
   name: "Header",
+  components:{
+    Chat
+  },
   data(){
     return {
       activeIndex:"/",
@@ -131,10 +140,10 @@ export default {
   font-size: 25px;
 }
 .title{
-  margin-left: 5%;
+  margin-left: 50px;
 }
 .user{
-  margin-left: 5%;
+  margin-left: 3%;
   color: #3FC1C9;
   display: flex;
   justify-content: center;
@@ -147,7 +156,7 @@ export default {
 }
 
 .create{
-  margin-left: 45%;
+  margin-left: 47%;
   margin-top: 5px;
 }
 

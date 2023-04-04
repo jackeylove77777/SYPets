@@ -2,6 +2,8 @@ package com.hth.chat.entity;
 
 
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +31,6 @@ public class PrivateChat  {
     
     private String lastMessage;
 
-
+    private Date lastTime;
 
 }

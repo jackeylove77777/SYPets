@@ -98,13 +98,13 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public List<PostDetail> findPostByUserId(Integer id) {
-        List<PostDetail> postDetais=postMapper.findPostByUserId(id);
-        if(postDetais.size()==0||postDetais==null)
+        List<PostDetail> postDetails=postMapper.findPostByUserId(id);
+        if(postDetails.size()==0||postDetails==null)
             return null;
-        for(PostDetail p:postDetais){
+        for(PostDetail p:postDetails){
             p=getDetail(p);
         }
-        return postDetais;
+        return postDetails;
     }
 
     @Override

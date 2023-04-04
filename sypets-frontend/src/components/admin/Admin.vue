@@ -14,10 +14,6 @@
       <el-aside :width="isCollapse ? '64px' : '200px'">
 
         <el-menu unique-opened  router :default-active="activePath" background-color="#333744" text-color="#fff" active-text-color="#409FFF">
-          <!-- :unique-opened="true"->只允许展开一个菜单 -->
-          <!-- :collapse-transition="false" -> 关闭动画 -->
-          <!-- router -> 导航开启路由模式 -->
-          <!-- 一级菜单  -->
           <el-menu-item @click="saveNavState('/' + item.path)" :index="'/'+item.path" v-for="item in menuList" :key="item.id" >
             <!-- 一级菜单的模板区域 -->
             <template slot="title">
@@ -39,11 +35,23 @@ export default {
   name: "Admin",
   data () {
     return {
-      // 左侧菜单数据
-      menuList: [{'id':'125','authName':'用户管理',path:'user'},{'id':'103','authName':'文章管理',path:'post'}],
+      //左侧菜单数据
+      menuList: [
+          {'id':'1','authName':'用户管理',path:'user'},
+          {'id':'2','authName':'文章管理',path:'post'},
+          {'id':'3','authName':'广告管理',path:'adminAd'},
+          {'id':'4','authName':'寻宠管理',path:'adminFindpet'},
+          {'id':'5','authName':'寄养管理',path:'adminFoster'},
+          {'id':'6','authName':'流浪动物管理',path:'adminStray'},
+      ],
+
       iconObj: {
-        '125': 'iconfont icon-user',
-        '103': 'iconfont icon-baobiao',
+        '1': 'el-icon-user-solid',
+        '2': 'el-icon-document',
+        '3': 'el-icon-picture-outline',
+        '4': 'iconfont icon-sharpicons_Eagle',
+        '5': 'iconfont icon-sharpicons_Dog',
+        '6': 'iconfont icon-sharpicons_Dolphin',
       },
       // 默认不折叠
       isCollapse: false,

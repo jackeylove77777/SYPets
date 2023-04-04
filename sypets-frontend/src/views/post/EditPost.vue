@@ -1,9 +1,9 @@
 <template>
   <div class="content">
 
-    <el-page-header @back="goBack" content="修改文章"/>
+    <el-page-header @back="goBack" content="新增文章"/>
 
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"  class="demo-ruleForm">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="60px">
       <el-form-item label="标题" prop="title">
         <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
@@ -25,7 +25,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">发布</el-button>
       </el-form-item>
       <span></span>
     </el-form>
@@ -122,6 +122,5 @@ export default {
 <style scoped>
 .el-form{
   margin-top: 20px;
-  margin-right: 50px;
 }
 </style>

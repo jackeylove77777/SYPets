@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class ChatDto {
     private PrivateChat privateChat;
     private Integer unread;
+    private String toUsername;
 }

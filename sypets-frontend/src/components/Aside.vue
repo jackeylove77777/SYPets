@@ -1,7 +1,6 @@
 <template>
 
-  <div class="aside">
-    <el-divider/>
+  <div class="aside rounded">
     <div  class="item">
       <el-link type="primary" @click="to(user.username,1)"><h4>{{isNowUser?'我':sex}}{{'的粉丝:'+user.profile.followers}}</h4></el-link>
     </div>
@@ -13,7 +12,6 @@
     <div  class="item">
       <el-link type="primary" @click="to(user.username,3)"><h4>{{isNowUser?'我':sex}}{{'的收藏:'+user.profile.collects}}</h4></el-link>
     </div>
-    <el-divider/>
   </div>
 </template>
 
@@ -118,10 +116,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
 }
 .item{
   height: 50px;
-  width: 100%;
+  width: 200px%;
   color: blue;
   text-align: center;
   margin-top: 1px;
