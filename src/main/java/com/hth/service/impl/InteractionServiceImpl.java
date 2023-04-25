@@ -1,9 +1,12 @@
 package com.hth.service.impl;
 
+import com.hth.entity.Post;
 import com.hth.entity.Profile;
+import com.hth.mapper.PostMapper;
 import com.hth.service.InteractionService;
 import com.hth.service.MessageService;
 import com.hth.util.JWTUtil;
+import javafx.geometry.Pos;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,7 +22,8 @@ public class InteractionServiceImpl implements InteractionService {
     RedisTemplate redisTemplate;
     @Autowired
     MessageService messageService;
-
+    @Autowired
+    PostMapper postMapper;
 
     /**
      * 给文章点赞
@@ -30,6 +34,9 @@ public class InteractionServiceImpl implements InteractionService {
     public int onStart(Integer postId) {
         int userId=JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
         redisTemplate.opsForSet().add("post:" + postId + ":start",userId);
+        Post p = postMapper.selectById(postId);
+        int star = p.getStar();
+        p.setStar(star+1);
         //发送点赞消息
         messageService.addStartMessage(userId,postId,4);
         return 1;
@@ -44,6 +51,9 @@ public class InteractionServiceImpl implements InteractionService {
     public int unStart(Integer postId) {
         int userId=JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
         redisTemplate.opsForSet().remove("post:" + postId + ":start",userId);
+        Post p = postMapper.selectById(postId);
+        int star = p.getStar();
+        p.setStar(star-1);
         return 1;
     }
     /**
@@ -69,6 +79,10 @@ public class InteractionServiceImpl implements InteractionService {
         redisTemplate.opsForZSet().add(userId+":collect",postId,new Date().getTime());
         //收餐文章的用户们
         redisTemplate.opsForSet().add("post:" + postId + ":collect",userId);
+
+        Post p = postMapper.selectById(postId);
+        int collect = p.getCollectCount();
+        p.setCollectCount(collect+1);
         return 1;
     }
     /**
@@ -92,6 +106,10 @@ public class InteractionServiceImpl implements InteractionService {
         Integer userId=JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
         redisTemplate.opsForZSet().remove(userId+":collect",postId);
         redisTemplate.opsForSet().remove("post:" + postId + ":collect",userId);
+
+        Post p = postMapper.selectById(postId);
+        int collect = p.getCollectCount();
+        p.setCollectCount(collect-1);
         return 0;
     }
 

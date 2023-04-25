@@ -72,7 +72,7 @@ public class AdminController {
     public Msg getPost(@RequestParam(name = "pagenum",defaultValue = "1")Integer page,
                        @RequestParam(name ="pagesize",defaultValue = "5")Integer size,
                        @RequestParam(name="query",defaultValue = "")String query){
-        List<PostDetail> list = postService.serachPost(query);
+        List<PostDetail> list = postService.searchPost(query);
         PageHelper.startPage(page,size);
         PageInfo pageInfo=new PageInfo(list);
         System.out.println(list);

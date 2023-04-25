@@ -39,6 +39,9 @@ public class Post  {
     //考虑到转发，但是未实现
     private Integer author;
 
+    private Integer star;
+    private Integer collectCount;
+
     private Date createTime;
     private Date updateTime;
     //删除标志（0代表未删除，1代表已删除）

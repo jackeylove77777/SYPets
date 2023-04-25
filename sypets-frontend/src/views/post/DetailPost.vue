@@ -8,9 +8,9 @@
       <span class="title">{{data.title}}</span>
     </el-row>
     <div @click="visitUser(data.username)" class="user">
-      <el-image
+      <img
           style="width: 60px; height: 60px"
-          :src="data.avatar"></el-image>
+          :src="data.avatar">
       <div class="user-content">
         <span style="color: black;font-size: 20px">{{data.username}}</span>
         <span style="color:#8a919f;">{{data.createTime}}</span>

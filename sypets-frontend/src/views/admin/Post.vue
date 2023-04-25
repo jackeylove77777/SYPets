@@ -115,9 +115,9 @@ export default {
             post.status=1
           this.$message.success(res.data.message)
         }
-        else{
-          this.$message.error(res.data.message)
-        }
+        // else{
+        //   this.$message.error(res.data.message)
+        // }
       })
     },
     // 监听 pagesize改变的事件

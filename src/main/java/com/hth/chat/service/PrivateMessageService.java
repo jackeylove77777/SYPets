@@ -1,6 +1,7 @@
 package com.hth.chat.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hth.chat.entity.MessageBody;
 import com.hth.chat.entity.PrivateMessage;
 
 
@@ -11,5 +12,6 @@ import com.hth.chat.entity.PrivateMessage;
  * @since 2023-03-11 20:23:47
  */
 public interface PrivateMessageService extends IService<PrivateMessage> {
-
+    int count(int status,int chatid,int uid);
+    boolean save(PrivateMessage privateMessage);
 }

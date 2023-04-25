@@ -35,7 +35,7 @@ axios.interceptors.response.use(response=>{
         if(res===200||res===400)
             return response
         else
-            Element.Message.error(response.data.message,{duration: 3 * 1000})
+            // Element.Message.error(response.data.message,{duration: 3 * 1000})
     return response
 },error => {
 

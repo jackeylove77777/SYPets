@@ -26,7 +26,7 @@
           <span class="mx-2 info">{{item.lostTime.substring(0,10)}}</span>
         </div>
         <div class="info-row">
-          <el-button type="primary"  plain disabled class="btn-label">&nbsp;&nbsp;&nbsp;&nbsp;地址&nbsp;&nbsp;&nbsp;</el-button>
+          <el-button type="primary"  plain disabled class="btn-label">走丢地址</el-button>
           <span class="mx-2 info">{{item.address}}</span>
         </div>
         <div class="info-row">

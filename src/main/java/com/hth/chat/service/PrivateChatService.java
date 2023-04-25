@@ -2,6 +2,9 @@ package com.hth.chat.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hth.chat.entity.PrivateChat;
+import com.hth.mapper.PrivateChatMapper;
+
+import java.util.List;
 
 
 /**
@@ -11,5 +14,8 @@ import com.hth.chat.entity.PrivateChat;
  * @since 2023-03-11 19:42:08
  */
 public interface PrivateChatService extends IService<PrivateChat> {
-
+    List<PrivateChat> list(int one,int two);
+    PrivateChat getone(int one,int two);
+    boolean save(PrivateChat chat);
+    PrivateChat getById(int chatid);
 }

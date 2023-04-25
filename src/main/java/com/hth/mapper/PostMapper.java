@@ -29,6 +29,6 @@ public interface PostMapper extends BaseMapper<Post> {
 
     List<PostDetail> findFollowingPost(List<Integer> list);
 
-    List<PostDetail> serachPost(String content);
+    List<PostDetail> searchPost(String content);
 
 }

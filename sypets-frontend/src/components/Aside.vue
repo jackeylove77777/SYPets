@@ -54,7 +54,7 @@ export default {
       },1000)
     },
   },
-  mounted() {
+  created() {
     this.$http.get("/findUserDetails/"+this.$store.getters.getUser.username).then(res=>{
       this.$store.commit("SET_USERINFO",res.data.data.user)
       this.getUserInfo()

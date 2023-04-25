@@ -34,7 +34,7 @@
     </select>
 
 
-    <select id="serachPost" resultType="com.hth.entity.PostDetail">
+    <select id="searchPost" resultType="com.hth.entity.PostDetail">
         select post.*,type.name,username,avatar from type,post,user where
             type_id=type.id
                                                                       and user.id=post.uid

@@ -19,7 +19,7 @@ public class ExceptionFilter implements Filter {
             // 异常捕获，发送到error controller
             request.setAttribute("filter.error", e);
             //将异常分发到/error/exthrow控制器
-            request.getRequestDispatcher("/error/exthrow").forward(request, response);
+            request.getRequestDispatcher("/error/exthrow").forward(request, response);//这个接口在UserController的最下面，代表处理异常
         }
     }
 

@@ -2,7 +2,7 @@
 server:
   port: 8001
   servlet:
-    context-path: /api
+    context-path: /api  #代表在所有的接接口路由前加上/api
 #mysql redis
 spring:
   datasource:
@@ -27,7 +27,7 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 2MB
+      max-file-size: 2MB #文件上传的大小限制
   #rabbitMQ
   rabbitmq:
     port: 5672

@@ -38,7 +38,7 @@ export default {
     })
   },
   beforeDestroy(){
-    this.$bus.$off('updateList')
+    this.$bus.$off('updateList')   //防止事件一直监听
   }
 }
 </script>

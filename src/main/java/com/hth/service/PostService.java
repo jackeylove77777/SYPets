@@ -29,7 +29,7 @@ public interface PostService {
 
     List<PostDetail> findFollowingPost(List<Integer> uidList);
 
-    List<PostDetail> serachPost(String content);
+    List<PostDetail> searchPost(String content);
 
     int rePost(Integer id);
 

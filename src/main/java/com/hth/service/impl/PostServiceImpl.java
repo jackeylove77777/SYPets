@@ -144,8 +144,8 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public List<PostDetail> serachPost(String content) {
-        List<PostDetail> posts = postMapper.serachPost("%"+content+"%");
+    public List<PostDetail> searchPost(String content) {
+        List<PostDetail> posts = postMapper.searchPost("%"+content+"%");
         for(PostDetail p:posts){
             getDetail(p);
         }

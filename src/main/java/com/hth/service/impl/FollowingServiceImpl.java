@@ -30,7 +30,7 @@ public class FollowingServiceImpl implements FollowingService {
     ProfileService profileService;
     @Override
     public PageInfo findFollowingPost(Integer page, Integer size) {
-        //找出用户的关注的所有人
+        //找出用户的关注的所有用户的Id
         Set<Integer> members = redisTemplate.opsForSet().members(JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal()) + ":followings");
 
         if(members.size()==0)return new PageInfo();

@@ -115,6 +115,7 @@ export default {
     getList(){
       this.$http.get('/findpet/all',{params:this.queryInfo}).then(res=>{
         if(res.data.status==200){
+          console.log(res)
           this.list=res.data.data.list
           this.total=res.data.data.total
         }

@@ -33,7 +33,7 @@ public class FindpetController {
     @DeleteMapping("/{id}")
     public Msg delete(@PathVariable Integer id){
         Findpet findpet = findpetService.getById(id);
-        int uid = JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
+        int uid = JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());//uid指当前登录用户的id
         if(uid!=findpet.getUid()){
             return Msg.fail("没有权限");
         }
@@ -65,7 +65,7 @@ public class FindpetController {
 
     @DeleteMapping("/admin/{id}")
     @RequiresRoles("admin")
-    public Msg adminDelete(@PathVariable Integer id){
+    public Msg adminFindPetDelete(@PathVariable Integer id){
         findpetService.removeById(id);
         return Msg.success("删除成功");
     }

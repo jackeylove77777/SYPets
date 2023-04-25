@@ -57,7 +57,7 @@ public class FosterController {
 
     @DeleteMapping("/admin/{id}")
     @RequiresRoles("admin")
-    public Msg adminDelete(@PathVariable Integer id){
+    public Msg adminFosterDelete(@PathVariable Integer id){
         fosterService.removeById(id);
         return Msg.success("删除成功");
     }

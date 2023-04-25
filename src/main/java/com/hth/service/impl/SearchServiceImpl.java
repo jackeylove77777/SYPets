@@ -26,7 +26,7 @@ public class SearchServiceImpl implements SearchService {
         queryWrapper.select(User::getUsername,User::getAvatar,User::getId,User::getPrivateInfo);
         queryWrapper.like(User::getUsername,content);
         List<User> users = userMapper.selectList(queryWrapper);
-        List<PostDetail> postDetails = postService.serachPost(content);
+        List<PostDetail> postDetails = postService.searchPost(content);
         Map<String,List> map=new HashMap<>();
         map.put("users",users);
         map.put("post",postDetails);

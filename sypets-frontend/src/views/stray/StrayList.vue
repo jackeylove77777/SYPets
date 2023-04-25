@@ -90,7 +90,7 @@ export default {
           {min: 3, max: 100, message: '长度在 3 到 100 个字符', trigger: 'blur'}
         ],
         address: [
-          {required: true, message: '请输入联系方式', trigger: 'blur'},
+          {required: true, message: '请输入发现地点', trigger: 'blur'},
           {min: 3, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur'}
         ],
       },

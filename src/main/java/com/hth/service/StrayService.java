@@ -1,6 +1,7 @@
 package com.hth.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hth.entity.Foster;
 import com.hth.entity.Stray;
 
 
@@ -11,5 +12,7 @@ import com.hth.entity.Stray;
  * @since 2023-03-10 23:35:54
  */
 public interface StrayService extends IService<Stray> {
-
+    Stray getById(int id);
+    boolean removeById(int id);
+    boolean save(Stray stray);
 }

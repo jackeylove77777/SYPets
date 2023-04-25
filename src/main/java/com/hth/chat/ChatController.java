@@ -35,26 +35,23 @@ public class ChatController {
     PrivateChatService privateChatService;
     @Autowired
     PrivateMessageService privateMessageService;
+
+    public JWTUtil jwtUtil = new JWTUtil();
     //获取聊天列表
     @GetMapping("/list")
     public Msg getChatList(){
         //获取用户Id
-        int uid = JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
+        int uid = jwtUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
         int all = 0;
-        LambdaQueryWrapper<PrivateChat> queryWrapper = new LambdaQueryWrapper<>();
-        //发起者或者接收者有用户则都要获取这个聊天列表项
-        queryWrapper.eq(PrivateChat::getUserOne,uid).or(x->x.eq(PrivateChat::getUserTwo,uid));
         //获取所有数据。
-        List<PrivateChat> list = privateChatService.list(queryWrapper);
+        List<PrivateChat> list = privateChatService.list(uid,uid);
         //声明返回给前端
         List<ChatDto> res = new ArrayList<>(list.size());
         //设置有多少个未读
         for(PrivateChat chat:list){
             //查询未读
-            LambdaQueryWrapper<PrivateMessage> messageQuery = new LambdaQueryWrapper<>();
-            //只需要查询Receptor即可,先是找出状态未1代表未读，再是chatId与当前循环的chat的id相等的，最后是
-            messageQuery.eq(PrivateMessage::getState,1).eq(PrivateMessage::getChatId,chat.getId()).eq(PrivateMessage::getReceptorId,uid);
-            int count = privateMessageService.count(messageQuery);
+            int chatid = chat.getId();
+            int count = privateMessageService.count(1,chatid,uid);
             all+=count;
             //查询对方的名字
             String name = "";
@@ -74,19 +71,15 @@ public class ChatController {
     }
     @GetMapping("/exists/{toId}")
     public Msg existsChat(@PathVariable Integer toId){
-        int uid = JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
+        int uid = jwtUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
         //先检索
-        LambdaQueryWrapper<PrivateChat> query1 = new LambdaQueryWrapper<>();
-        query1.eq(PrivateChat::getUserOne,uid).and(x->x.eq(PrivateChat::getUserTwo,toId));
-        PrivateChat one = privateChatService.getOne(query1);
+        PrivateChat one = privateChatService.getone(uid,toId);
         //检查query1是否存在,存在则添加
         if(one!=null){
             return Msg.success().add("exist",true).add("chatId",one.getId());
         }
         //检索第二种情况
-        LambdaQueryWrapper<PrivateChat> query2 = new LambdaQueryWrapper<>();
-        query2.eq(PrivateChat::getUserOne,toId).and(x->x.eq(PrivateChat::getUserTwo,uid));
-        PrivateChat two = privateChatService.getOne(query2);
+        PrivateChat two = privateChatService.getone(toId,uid);
         if(two!=null){
             return Msg.success().add("exist",true).add("chatId",two.getId());
         }
@@ -95,7 +88,7 @@ public class ChatController {
     @PostMapping("/addChat/{toId}")
     public Msg addChat(@PathVariable Integer toId){
         //获取发送消息的用户
-        int uid = JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
+        int uid = jwtUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
         //都不存在则创建新的
         PrivateChat privateChat = new PrivateChat();
         privateChat.setUserOne(uid);//默认创建当前发起者为UserOne的chat
@@ -107,7 +100,7 @@ public class ChatController {
     @PostMapping("/add/{chatId}/{toId}")
     public Msg sendMessage(@RequestBody MessageBody messageBody,@PathVariable Integer chatId, @PathVariable Integer toId){
         //获取发送消息的用户
-        int uid = JWTUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
+        int uid = jwtUtil.getUserId((String) SecurityUtils.getSubject().getPrincipal());
         PrivateChat chat = privateChatService.getById(chatId);
         addMessage(chat,uid,toId,messageBody.getMessage());
         return Msg.success("发送成功");

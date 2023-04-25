@@ -19,8 +19,8 @@ public class CommentController {
     CommentService commentService;
     @PostMapping("/comment/{id}")
     @TestSuccess
-    public Msg comment(@PathVariable Integer id, @RequestBody Map<String,String> map){
-        Comment item = commentService.comment(id,map.get("content"));
+    public Msg comment(@PathVariable Integer pid, @RequestBody Map<String,String> map){
+        Comment item = commentService.comment(pid,map.get("content"));
         return Msg.success("评论成功").add("item",item);
     }
 

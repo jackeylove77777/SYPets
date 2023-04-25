@@ -193,9 +193,9 @@ export default {
           oldKey=oldKey.substring(36)
           this.$http.get("/qiniu/delete/"+oldKey)
         }
-        else{
-          this.$message.error(res.data.message)
-        }
+        // else{
+        //   this.$message.error(res.data.message)
+        // }
       })
     },
     // 监听 pagesize改变

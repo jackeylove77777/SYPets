@@ -50,7 +50,7 @@ public class StrayController {
 
     @DeleteMapping("/admin/{id}")
     @RequiresRoles("admin")
-    public Msg adminDelete(@PathVariable Integer id){
+    public Msg adminStrayDelete(@PathVariable Integer id){
         strayService.removeById(id);
         return Msg.success("删除成功");
     }

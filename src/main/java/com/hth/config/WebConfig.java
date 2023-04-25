@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOriginPatterns("*")
-                .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS") //跨域允许的方法
                 .allowCredentials(true)
                 .maxAge(3600)
                 .allowedHeaders("*");
@@ -30,7 +30,7 @@ public class WebConfig implements WebMvcConfigurer {
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
-        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期的格式
+        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期的格式  //把传输的类中类型为Date的字段转换成这种格式的字符串
 
 
         fastJsonConfig.setSerializeConfig(SerializeConfig.globalInstance);
@@ -38,6 +38,22 @@ public class WebConfig implements WebMvcConfigurer {
         HttpMessageConverter<?> converter = fastConverter;
         return converter;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
